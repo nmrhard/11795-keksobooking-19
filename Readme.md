@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Роман Литвинов](https://up.htmlacademy.ru/javascript/19/user/11795).
-* Наставник: `Неизвестно`.
+* Наставник: [Андрей Карякин](https://htmlacademy.ru/profile/id133011).
 
 ---
 
