@@ -7,7 +7,7 @@ var TYPE_APARTMENT = ['palace', 'flat', 'house', 'bungalo'];
 var CHECKIN = ['12:00', '13:00', '14:00'];
 var CHECKOUT = ['12:00', '13:00', '14:00'];
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg']
+var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 var PRICE = {
   MIN: 1000,
   MAX: 10000
@@ -15,11 +15,11 @@ var PRICE = {
 var GUESTS = {
   MIN: 0,
   MAX: 2
-}
+};
 var ROOMS = {
   MIN: 1,
   MAX: 3
-}
+};
 var LOCATION = {
   X: {
     MIN: 25,
@@ -31,7 +31,7 @@ var LOCATION = {
   }
 };
 
-var map  = document.querySelector('.map');
+var map = document.querySelector('.map');
 map.classList.remove('map--faded');
 
 var mapPinsElement = document.querySelector('.map__pins');
@@ -57,7 +57,7 @@ var getRandomArr = function (arr) {
   for (var i = 0; i < arrLenght; i++) {
     randomElement = getRendomElement(arr);
     randomArr.push(arr[randomElement]);
-    arr.splice(randomElement, 1)
+    arr.splice(randomElement, 1);
   }
 
   return randomArr;
@@ -69,11 +69,11 @@ var createOffer = function (numberOfOffer) {
 
   var offer = {
     author: {
-      avatar: 'img/avatars/user' + getPictureNumber(numberOfOffer) +'.png'
+      avatar: 'img/avatars/user' + getPictureNumber(numberOfOffer) + '.png'
     },
     offer: {
       title: 'Предложение ' + numberOfOffer,
-      address: locationX + ',' +  locationY,
+      address: locationX + ',' + locationY,
       price: getRendomNumber(PRICE.MIN, PRICE.MAX),
       type: TYPE_APARTMENT[getRendomElement(TYPE_APARTMENT)],
       rooms: getRendomNumber(ROOMS.MIN, ROOMS.MAX),
@@ -88,7 +88,7 @@ var createOffer = function (numberOfOffer) {
       x: locationX,
       y: locationY
     }
-  }
+  };
 
   return offer;
 };
@@ -108,7 +108,7 @@ var renderPin = function (offer) {
   var pinX = offer.location.x - PIN_WIDTH / 2;
   var pinY = offer.location.y - PIN_HEIGHT;
 
-  pinElement.setAttribute('style', 'left: ' + pinX  + 'px; ' + 'top: ' + pinY + 'px;');
+  pinElement.setAttribute('style', 'left: ' + pinX + 'px; ' + 'top: ' + pinY + 'px;');
 
   pinElement.querySelector('img').src = offer.author.avatar;
   pinElement.querySelector('img').alt = offer.offer.title;
