@@ -1,8 +1,8 @@
 'use strict';
 
 var OFFERS = 8;
-var PIN_WIDTH = 65;
-var PIN_HEIGHT = 87;
+var PIN_WIDTH = 50;
+var PIN_HEIGHT = 70;
 var TYPE_APARTMENT = ['palace', 'flat', 'house', 'bungalo'];
 var CHECKIN = ['12:00', '13:00', '14:00'];
 var CHECKOUT = ['12:00', '13:00', '14:00'];
@@ -22,8 +22,8 @@ var ROOMS = {
 }
 var LOCATION = {
   X: {
-    MIN: 1,
-    MAX: 1200
+    MIN: 25,
+    MAX: 1175
   },
   Y: {
     MIN: 130,
@@ -34,6 +34,7 @@ var LOCATION = {
 var map  = document.querySelector('.map');
 map.classList.remove('map--faded');
 
+var mapPinsElement = document.querySelector('.map__pins');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
 var getPictureNumber = function (offer) {
@@ -92,10 +93,20 @@ var createOffer = function (numberOfOffer) {
   return offer;
 };
 
-var renderPin = function(offer) {
+var generateOffers = function () {
+  var offers = [];
+
+  for (var i = 1; i <= OFFERS; i++) {
+    offers.push(createOffer(i));
+  }
+
+  return offers;
+};
+
+var renderPin = function (offer) {
   var pinElement = pinTemplate.cloneNode(true);
   var pinX = offer.location.x - PIN_WIDTH / 2;
-  var pinY = offer.location.y + PIN_HEIGHT;
+  var pinY = offer.location.y - PIN_HEIGHT;
 
   pinElement.setAttribute('style', 'left: ' + pinX  + 'px; ' + 'top: ' + pinY + 'px;');
 
@@ -103,6 +114,16 @@ var renderPin = function(offer) {
   pinElement.querySelector('img').alt = offer.offer.title;
 
   return pinElement;
-}
+};
 
-renderPin(createOffer(3));
+var addPinToMap = function (offers) {
+  var fragment = document.createDocumentFragment();
+
+  for (var i = 0; i < offers.length; i++) {
+    fragment.appendChild(renderPin(offers[i]));
+  }
+
+  return fragment;
+};
+
+mapPinsElement.appendChild(addPinToMap(generateOffers()));
