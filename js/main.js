@@ -8,34 +8,36 @@ var CHECKIN = ['12:00', '13:00', '14:00'];
 var CHECKOUT = ['12:00', '13:00', '14:00'];
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
-var PRICE = {
+var Price = {
   MIN: 1000,
   MAX: 10000
 };
-var GUESTS = {
+var Guests = {
   MIN: 0,
   MAX: 2
 };
-var ROOMS = {
+var Rooms = {
   MIN: 1,
   MAX: 3
 };
-var LOCATION = {
+var Location = {
   X: {
     MIN: 25,
     MAX: 1175
   },
   Y: {
-    MIN: 130,
+    MIN: 200,
     MAX: 630
   }
 };
+var Nodes = {
+  MAP: document.querySelector('.map'),
+  MAP_PINS_ELEMENT: document.querySelector('.map__pins'),
+  PIN_TEMPLATE: document.querySelector('#pin').content.querySelector('.map__pin'),
+  CARD_TEMPLATE: document.querySelector('#card').content.querySelector('map__card')
+}
 
-var map = document.querySelector('.map');
-map.classList.remove('map--faded');
-
-var mapPinsElement = document.querySelector('.map__pins');
-var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+Nodes.MAP.classList.remove('map--faded');
 
 var getPictureNumber = function (offer) {
   return (offer >= 10) ? offer : '0' + offer;
@@ -45,27 +47,27 @@ var getRendomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-var getRendomElement = function (arr) {
+var getRendomArrIndex = function (arr) {
   return Math.floor(Math.random() * arr.length);
 };
 
 var getRandomArr = function (arr) {
   var randomElement = 0;
   var randomArr = [];
-  var arrLenght = getRendomNumber(1, arr.length);
+  var tempArr = arr.slice();
+  var arrLenght = getRendomNumber(1, tempArr.length);
 
   for (var i = 0; i < arrLenght; i++) {
-    randomElement = getRendomElement(arr);
-    randomArr.push(arr[randomElement]);
-    arr.splice(randomElement, 1);
+    randomElement = getRendomArrIndex(tempArr);
+    randomArr.push(tempArr.splice(randomElement, 1));
   }
 
   return randomArr;
 };
 
 var createOffer = function (numberOfOffer) {
-  var locationX = getRendomNumber(LOCATION.X.MIN, LOCATION.X.MAX);
-  var locationY = getRendomNumber(LOCATION.Y.MIN, LOCATION.Y.MAX);
+  var locationX = getRendomNumber(Location.X.MIN, Location.X.MAX);
+  var locationY = getRendomNumber(Location.Y.MIN, Location.Y.MAX);
 
   var offer = {
     author: {
@@ -74,12 +76,12 @@ var createOffer = function (numberOfOffer) {
     offer: {
       title: 'Предложение ' + numberOfOffer,
       address: locationX + ',' + locationY,
-      price: getRendomNumber(PRICE.MIN, PRICE.MAX),
-      type: TYPE_APARTMENT[getRendomElement(TYPE_APARTMENT)],
-      rooms: getRendomNumber(ROOMS.MIN, ROOMS.MAX),
-      guests: getRendomNumber(GUESTS.MIN, GUESTS.MAX),
-      checkin: CHECKIN[getRendomElement(CHECKIN)],
-      checkout: CHECKOUT[getRendomElement(CHECKOUT)],
+      price: getRendomNumber(Price.MIN, Price.MAX),
+      type: TYPE_APARTMENT[getRendomArrIndex(TYPE_APARTMENT)],
+      rooms: getRendomNumber(Rooms.MIN, Rooms.MAX),
+      guests: getRendomNumber(Guests.MIN, Guests.MAX),
+      checkin: CHECKIN[getRendomArrIndex(CHECKIN)],
+      checkout: CHECKOUT[getRendomArrIndex(CHECKOUT)],
       features: getRandomArr(FEATURES),
       description: 'Описание ' + numberOfOffer,
       photos: getRandomArr(PHOTOS)
@@ -104,7 +106,7 @@ var generateOffers = function () {
 };
 
 var renderPin = function (offer) {
-  var pinElement = pinTemplate.cloneNode(true);
+  var pinElement = Nodes.PIN_TEMPLATE.cloneNode(true);
   var pinX = offer.location.x - PIN_WIDTH / 2;
   var pinY = offer.location.y - PIN_HEIGHT;
 
@@ -119,11 +121,11 @@ var renderPin = function (offer) {
 var addPinToMap = function (offers) {
   var fragment = document.createDocumentFragment();
 
-  for (var i = 0; i < offers.length; i++) {
-    fragment.appendChild(renderPin(offers[i]));
-  }
+  offers.forEach(function (offer) {
+    fragment.appendChild(renderPin(offer));
+  });
 
   return fragment;
 };
 
-mapPinsElement.appendChild(addPinToMap(generateOffers()));
+Nodes.MAP_PINS_ELEMENT.appendChild(addPinToMap(generateOffers()));
