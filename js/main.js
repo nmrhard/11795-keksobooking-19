@@ -20,7 +20,7 @@ var Rooms = {
   MIN: 1,
   MAX: 3
 };
-var Location = {
+var OfferLocation = {
   X: {
     MIN: 25,
     MAX: 1175
@@ -35,7 +35,7 @@ var Nodes = {
   MAP_PINS_ELEMENT: document.querySelector('.map__pins'),
   PIN_TEMPLATE: document.querySelector('#pin').content.querySelector('.map__pin'),
   CARD_TEMPLATE: document.querySelector('#card').content.querySelector('map__card')
-}
+};
 
 Nodes.MAP.classList.remove('map--faded');
 
@@ -66,8 +66,8 @@ var getRandomArr = function (arr) {
 };
 
 var createOffer = function (numberOfOffer) {
-  var locationX = getRendomNumber(Location.X.MIN, Location.X.MAX);
-  var locationY = getRendomNumber(Location.Y.MIN, Location.Y.MAX);
+  var locationX = getRendomNumber(OfferLocation.X.MIN, OfferLocation.X.MAX);
+  var locationY = getRendomNumber(OfferLocation.Y.MIN, OfferLocation.Y.MAX);
 
   var offer = {
     author: {
@@ -95,10 +95,10 @@ var createOffer = function (numberOfOffer) {
   return offer;
 };
 
-var generateOffers = function () {
+var generateOffers = function (numberOfOffers) {
   var offers = [];
 
-  for (var i = 1; i <= OFFERS; i++) {
+  for (var i = 1; i <= numberOfOffers; i++) {
     offers.push(createOffer(i));
   }
 
@@ -128,4 +128,4 @@ var addPinToMap = function (offers) {
   return fragment;
 };
 
-Nodes.MAP_PINS_ELEMENT.appendChild(addPinToMap(generateOffers()));
+Nodes.MAP_PINS_ELEMENT.appendChild(addPinToMap(generateOffers(OFFERS)));
