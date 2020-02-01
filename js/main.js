@@ -1,13 +1,15 @@
 'use strict';
 
-var OFFERS = 8;
-var PIN_WIDTH = 50;
-var PIN_HEIGHT = 70;
+var OFFERS_COUNT = 8;
 var TYPE_APARTMENT = ['palace', 'flat', 'house', 'bungalo'];
 var CHECKIN = ['12:00', '13:00', '14:00'];
 var CHECKOUT = ['12:00', '13:00', '14:00'];
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+var Pin = {
+  WIDTH: 50,
+  HEIGHT: 70
+}
 var Price = {
   MIN: 1000,
   MAX: 10000
@@ -37,28 +39,30 @@ var Nodes = {
   CARD_TEMPLATE: document.querySelector('#card').content.querySelector('map__card')
 };
 
-Nodes.MAP.classList.remove('map--faded');
-
 var getPictureNumber = function (offer) {
-  return (offer >= 10) ? offer : '0' + offer;
+  return offer.toString().padStart(2, '0');
 };
 
-var getRendomNumber = function (min, max) {
+var getRandomBetween = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-var getRendomArrIndex = function (arr) {
+var getRandomIndex = function (arr) {
   return Math.floor(Math.random() * arr.length);
 };
 
-var getRandomArr = function (arr) {
+var getRandomItem = function (arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+var getRandomItems = function (arr) {
   var randomElement = 0;
   var randomArr = [];
   var tempArr = arr.slice();
-  var arrLenght = getRendomNumber(1, tempArr.length);
+  var arrLenght = getRandomBetween(1, tempArr.length);
 
   for (var i = 0; i < arrLenght; i++) {
-    randomElement = getRendomArrIndex(tempArr);
+    randomElement = getRandomIndex(tempArr);
     randomArr.push(tempArr.splice(randomElement, 1));
   }
 
@@ -66,8 +70,8 @@ var getRandomArr = function (arr) {
 };
 
 var createOffer = function (numberOfOffer) {
-  var locationX = getRendomNumber(OfferLocation.X.MIN, OfferLocation.X.MAX);
-  var locationY = getRendomNumber(OfferLocation.Y.MIN, OfferLocation.Y.MAX);
+  var locationX = getRandomBetween(OfferLocation.X.MIN, OfferLocation.X.MAX);
+  var locationY = getRandomBetween(OfferLocation.Y.MIN, OfferLocation.Y.MAX);
 
   var offer = {
     author: {
@@ -76,15 +80,15 @@ var createOffer = function (numberOfOffer) {
     offer: {
       title: 'Предложение ' + numberOfOffer,
       address: locationX + ',' + locationY,
-      price: getRendomNumber(Price.MIN, Price.MAX),
-      type: TYPE_APARTMENT[getRendomArrIndex(TYPE_APARTMENT)],
-      rooms: getRendomNumber(Rooms.MIN, Rooms.MAX),
-      guests: getRendomNumber(Guests.MIN, Guests.MAX),
-      checkin: CHECKIN[getRendomArrIndex(CHECKIN)],
-      checkout: CHECKOUT[getRendomArrIndex(CHECKOUT)],
-      features: getRandomArr(FEATURES),
+      price: getRandomBetween(Price.MIN, Price.MAX),
+      type: getRandomItem(TYPE_APARTMENT),
+      rooms: getRandomBetween(Rooms.MIN, Rooms.MAX),
+      guests: getRandomBetween(Guests.MIN, Guests.MAX),
+      checkin: getRandomItem(CHECKIN),
+      checkout: getRandomItem(CHECKOUT),
+      features: getRandomItems(FEATURES),
       description: 'Описание ' + numberOfOffer,
-      photos: getRandomArr(PHOTOS)
+      photos: getRandomItems(PHOTOS)
     },
     location: {
       x: locationX,
@@ -95,10 +99,10 @@ var createOffer = function (numberOfOffer) {
   return offer;
 };
 
-var generateOffers = function (numberOfOffers) {
+var generateOffers = function (offersCount) {
   var offers = [];
 
-  for (var i = 1; i <= numberOfOffers; i++) {
+  for (var i = 1; i <= offersCount; i++) {
     offers.push(createOffer(i));
   }
 
@@ -107,8 +111,8 @@ var generateOffers = function (numberOfOffers) {
 
 var renderPin = function (offer) {
   var pinElement = Nodes.PIN_TEMPLATE.cloneNode(true);
-  var pinX = offer.location.x - PIN_WIDTH / 2;
-  var pinY = offer.location.y - PIN_HEIGHT;
+  var pinX = offer.location.x - Pin.WIDTH / 2;
+  var pinY = offer.location.y - Pin.HEIGHT;
 
   pinElement.setAttribute('style', 'left: ' + pinX + 'px; ' + 'top: ' + pinY + 'px;');
 
@@ -128,4 +132,5 @@ var addPinToMap = function (offers) {
   return fragment;
 };
 
-Nodes.MAP_PINS_ELEMENT.appendChild(addPinToMap(generateOffers(OFFERS)));
+Nodes.MAP.classList.remove('map--faded');
+Nodes.MAP_PINS_ELEMENT.appendChild(addPinToMap(generateOffers(OFFERS_COUNT)));
