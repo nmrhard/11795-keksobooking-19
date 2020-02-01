@@ -9,7 +9,7 @@ var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.g
 var Pin = {
   WIDTH: 50,
   HEIGHT: 70
-}
+};
 var Price = {
   MIN: 1000,
   MAX: 10000
@@ -53,7 +53,7 @@ var getRandomIndex = function (arr) {
 
 var getRandomItem = function (arr) {
   return arr[Math.floor(Math.random() * arr.length)];
-}
+};
 
 var getRandomItems = function (arr) {
   var randomElement = 0;
