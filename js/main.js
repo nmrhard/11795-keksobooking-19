@@ -36,7 +36,9 @@ var Nodes = {
   MAP: document.querySelector('.map'),
   MAP_PINS_ELEMENT: document.querySelector('.map__pins'),
   PIN_TEMPLATE: document.querySelector('#pin').content.querySelector('.map__pin'),
-  CARD_TEMPLATE: document.querySelector('#card').content.querySelector('map__card')
+  CARD_TEMPLATE: document.querySelector('#card').content.querySelector('map__card'),
+  OFFER_FORM: document.querySelector('.ad-form'),
+  MAP_FORM: document.querySelector('.map__filters')
 };
 
 var getPictureNumber = function (offer) {
@@ -132,5 +134,14 @@ var addPinToMap = function (offers) {
   return fragment;
 };
 
-Nodes.MAP.classList.remove('map--faded');
-Nodes.MAP_PINS_ELEMENT.appendChild(addPinToMap(generateOffers(OFFERS_COUNT)));
+var disabledChildElements = function (element) {
+  if (element.childElementCount) {
+    for (var i = 0; i < element.children.length; i++) {
+          element.children[i].disabled = true;
+    }
+  }
+}
+
+disabledChildElements(Nodes.OFFER_FORM);
+disabledChildElements(Nodes.MAP_FORM);
+//Nodes.MAP_PINS_ELEMENT.appendChild(addPinToMap(generateOffers(OFFERS_COUNT)));
