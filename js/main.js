@@ -1,6 +1,8 @@
 'use strict';
 
 var OFFERS_COUNT = 8;
+var MOUSE_LEFT_BUTTON = 0;
+var ENTER_KEY = 'Enter';
 var TYPE_APARTMENT = ['palace', 'flat', 'house', 'bungalo'];
 var CHECKIN = ['12:00', '13:00', '14:00'];
 var CHECKOUT = ['12:00', '13:00', '14:00'];
@@ -10,6 +12,11 @@ var Pin = {
   WIDTH: 50,
   HEIGHT: 70
 };
+var PinMain = {
+  WIDTH: 65,
+  HEIGHT: 65,
+  HEIGHT_ACTIVE: 84
+}
 var Price = {
   MIN: 1000,
   MAX: 10000
@@ -32,13 +39,19 @@ var OfferLocation = {
     MAX: 630
   }
 };
+var FORM_SATUS = {
+  inactive: true,
+  active: false
+};
 var Nodes = {
   MAP: document.querySelector('.map'),
+  PIN_MAIN: document.querySelector('.map__pin--main'),
   MAP_PINS_ELEMENT: document.querySelector('.map__pins'),
   PIN_TEMPLATE: document.querySelector('#pin').content.querySelector('.map__pin'),
   CARD_TEMPLATE: document.querySelector('#card').content.querySelector('map__card'),
   OFFER_FORM: document.querySelector('.ad-form'),
-  MAP_FORM: document.querySelector('.map__filters')
+  MAP_FORM: document.querySelector('.map__filters'),
+  ADDRESS_INPUT: document.querySelector('#address')
 };
 
 var getPictureNumber = function (offer) {
@@ -134,14 +147,45 @@ var addPinToMap = function (offers) {
   return fragment;
 };
 
-var disabledChildElements = function (element) {
+var toggleStateChildElements = function (element, status) {
   if (element.childElementCount) {
     for (var i = 0; i < element.children.length; i++) {
-          element.children[i].disabled = true;
+          element.children[i].disabled = status;
     }
   }
 }
 
-disabledChildElements(Nodes.OFFER_FORM);
-disabledChildElements(Nodes.MAP_FORM);
-//Nodes.MAP_PINS_ELEMENT.appendChild(addPinToMap(generateOffers(OFFERS_COUNT)));
+var getAddress = function (status) {
+  var mainPinX = Math.floor(Nodes.PIN_MAIN.offsetTop - PinMain.WIDTH / 2);;
+  var mainPinY = Math.floor(Nodes.PIN_MAIN.offsetLeft - PinMain.HEIGHT_ACTIVE);;
+
+  if (status) {
+    mainPinY = Math.floor(Nodes.PIN_MAIN.offsetLeft - PinMain.HEIGHT / 2);
+  }
+
+  return mainPinY + ', ' + mainPinX;
+};
+
+var onActivateElements = function (evt) {
+  if (evt.button === MOUSE_LEFT_BUTTON || evt.key === ENTER_KEY) {
+    Nodes.MAP.classList.remove('map--faded');
+    Nodes.OFFER_FORM.classList.remove('ad-form--disabled');
+    Nodes.MAP_PINS_ELEMENT.appendChild(addPinToMap(generateOffers(OFFERS_COUNT)));
+    Nodes.ADDRESS_INPUT.value = getAddress(FORM_SATUS.active);
+
+    toggleStateChildElements(Nodes.OFFER_FORM, FORM_SATUS.active);
+    toggleStateChildElements(Nodes.MAP_FORM, FORM_SATUS.active);
+
+    Nodes.PIN_MAIN.removeEventListener('mousedown', onActivateElements);
+    Nodes.PIN_MAIN.removeEventListener('keydown', onActivateElements);
+  }
+}
+
+Nodes.PIN_MAIN.addEventListener('mousedown', onActivateElements);
+
+Nodes.PIN_MAIN.addEventListener('keydown', onActivateElements);
+
+Nodes.ADDRESS_INPUT.value = getAddress(FORM_SATUS.inactive);
+
+toggleStateChildElements(Nodes.OFFER_FORM, FORM_SATUS.inactive);
+toggleStateChildElements(Nodes.MAP_FORM, FORM_SATUS.inactive);
