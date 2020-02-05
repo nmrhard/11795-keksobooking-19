@@ -16,7 +16,7 @@ var PinMain = {
   WIDTH: 65,
   HEIGHT: 65,
   HEIGHT_ACTIVE: 84
-}
+};
 var Price = {
   MIN: 1000,
   MAX: 10000
@@ -149,7 +149,7 @@ var addPinToMap = function (offers) {
   return fragment;
 };
 
-//Activate map and forms
+// Activate map and forms
 
 var toggleStateChildElements = function (element, status) {
   if (element.childElementCount) {
@@ -157,11 +157,11 @@ var toggleStateChildElements = function (element, status) {
       element.children[i].disabled = status;
     }
   }
-}
+};
 
 var getAddress = function (status) {
-  var mainPinX = Math.floor(Nodes.PIN_MAIN.offsetTop - PinMain.WIDTH / 2);;
-  var mainPinY = Math.floor(Nodes.PIN_MAIN.offsetLeft - PinMain.HEIGHT_ACTIVE);;
+  var mainPinX = Math.floor(Nodes.PIN_MAIN.offsetTop - PinMain.WIDTH / 2);
+  var mainPinY = Math.floor(Nodes.PIN_MAIN.offsetLeft - PinMain.HEIGHT_ACTIVE);
 
   if (status) {
     mainPinY = Math.floor(Nodes.PIN_MAIN.offsetLeft - PinMain.HEIGHT / 2);
@@ -183,7 +183,7 @@ var onActivateElements = function (evt) {
     Nodes.PIN_MAIN.removeEventListener('mousedown', onActivateElements);
     Nodes.PIN_MAIN.removeEventListener('keydown', onActivateElements);
   }
-}
+};
 
 Nodes.PIN_MAIN.addEventListener('mousedown', onActivateElements);
 
@@ -199,27 +199,27 @@ toggleStateChildElements(Nodes.MAP_FORM, FORM_SATUS.inactive);
 
 var checkGuestForRooms = function (currentElement, secondElement, guests, rooms) {
   if (rooms === 100 && guests !== 0) {
-    currentElement.setCustomValidity( rooms + ' комнат не для гостей');
+    currentElement.setCustomValidity(rooms + ' комнат не для гостей');
   } else if (rooms === 3 && guests === 0) {
-    currentElement.setCustomValidity( rooms + ' комнаты для 3 гостей, для 2 гостей или для 1 гостя');
-  } else if (rooms === 2 && (guests === 0  || guests === 3 )) {
-    currentElement.setCustomValidity( rooms + ' комнаты для 2 гостей или для 1 гостя');
-  } else if (rooms === 1 && guests !== 1 ) {
-    currentElement.setCustomValidity( rooms + ' комната толкьо для 1 гостя');
+    currentElement.setCustomValidity(rooms + ' комнаты для 3 гостей, для 2 гостей или для 1 гостя');
+  } else if (rooms === 2 && (guests === 0 || guests === 3)) {
+    currentElement.setCustomValidity(rooms + ' комнаты для 2 гостей или для 1 гостя');
+  } else if (rooms === 1 && guests !== 1) {
+    currentElement.setCustomValidity(rooms + ' комната толкьо для 1 гостя');
   } else {
     currentElement.setCustomValidity('');
     secondElement.setCustomValidity('');
- }
-}
+  }
+};
 
 Nodes.ROOMS_COUNT.addEventListener('change', function (evt) {
-  var guests = parseInt(Nodes.GUESTS_COUNT.value);
-  var rooms = parseInt(Nodes.ROOMS_COUNT.value);
+  var guests = parseInt(Nodes.GUESTS_COUNT.value, 10);
+  var rooms = Number.parseInt(Nodes.ROOMS_COUNT.value, 10);
   checkGuestForRooms(evt.target, Nodes.GUESTS_COUNT, guests, rooms);
 });
 
 Nodes.GUESTS_COUNT.addEventListener('change', function (evt) {
-  var guests = parseInt(Nodes.GUESTS_COUNT.value);
-  var rooms = parseInt(Nodes.ROOMS_COUNT.value);
+  var guests = Number.parseInt(Nodes.GUESTS_COUNT.value, 10);
+  var rooms = Number.parseInt(Nodes.ROOMS_COUNT.value, 10);
   checkGuestForRooms(evt.target, Nodes.ROOMS_COUNT, guests, rooms);
 });
