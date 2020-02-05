@@ -51,7 +51,9 @@ var Nodes = {
   CARD_TEMPLATE: document.querySelector('#card').content.querySelector('map__card'),
   OFFER_FORM: document.querySelector('.ad-form'),
   MAP_FORM: document.querySelector('.map__filters'),
-  ADDRESS_INPUT: document.querySelector('#address')
+  ADDRESS_INPUT: document.querySelector('#address'),
+  ROOMS_COUNT: document.querySelector('#room_number'),
+  GUESTS_COUNT: document.querySelector('#capacity')
 };
 
 var getPictureNumber = function (offer) {
@@ -147,10 +149,12 @@ var addPinToMap = function (offers) {
   return fragment;
 };
 
+//Activate map and forms
+
 var toggleStateChildElements = function (element, status) {
   if (element.childElementCount) {
     for (var i = 0; i < element.children.length; i++) {
-          element.children[i].disabled = status;
+      element.children[i].disabled = status;
     }
   }
 }
@@ -189,3 +193,33 @@ Nodes.ADDRESS_INPUT.value = getAddress(FORM_SATUS.inactive);
 
 toggleStateChildElements(Nodes.OFFER_FORM, FORM_SATUS.inactive);
 toggleStateChildElements(Nodes.MAP_FORM, FORM_SATUS.inactive);
+
+
+// Validate rooms and guests
+
+var checkGuestForRooms = function (currentElement, secondElement, guests, rooms) {
+  if (rooms === 100 && guests !== 0) {
+    currentElement.setCustomValidity( rooms + ' комнат не для гостей');
+  } else if (rooms === 3 && guests === 0) {
+    currentElement.setCustomValidity( rooms + ' комнаты для 3 гостей, для 2 гостей или для 1 гостя');
+  } else if (rooms === 2 && (guests === 0  || guests === 3 )) {
+    currentElement.setCustomValidity( rooms + ' комнаты для 2 гостей или для 1 гостя');
+  } else if (rooms === 1 && guests !== 1 ) {
+    currentElement.setCustomValidity( rooms + ' комната толкьо для 1 гостя');
+  } else {
+    currentElement.setCustomValidity('');
+    secondElement.setCustomValidity('');
+ }
+}
+
+Nodes.ROOMS_COUNT.addEventListener('change', function (evt) {
+  var guests = parseInt(Nodes.GUESTS_COUNT.value);
+  var rooms = parseInt(Nodes.ROOMS_COUNT.value);
+  checkGuestForRooms(evt.target, Nodes.GUESTS_COUNT, guests, rooms);
+});
+
+Nodes.GUESTS_COUNT.addEventListener('change', function (evt) {
+  var guests = parseInt(Nodes.GUESTS_COUNT.value);
+  var rooms = parseInt(Nodes.ROOMS_COUNT.value);
+  checkGuestForRooms(evt.target, Nodes.ROOMS_COUNT, guests, rooms);
+});
