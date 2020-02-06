@@ -151,53 +151,63 @@ var addPinToMap = function (offers) {
 
 // Activate map and forms
 
-var toggleStateChildElements = function (element, status) {
+var setChildrenStatuses  = function (element, status) {
   if (element.childElementCount) {
     for (var i = 0; i < element.children.length; i++) {
-      element.children[i].disabled = status;
-    }
-  }
+     element.children[i].disabled = status;
+   }
+ }
 };
 
 var getAddress = function (status) {
+  var pinHeight = status ?  PinMain.HEIGHT / 2 : PinMain.HEIGHT_ACTIVE;
   var mainPinX = Math.floor(Nodes.PIN_MAIN.offsetTop - PinMain.WIDTH / 2);
-  var mainPinY = Math.floor(Nodes.PIN_MAIN.offsetLeft - PinMain.HEIGHT_ACTIVE);
-
-  if (status) {
-    mainPinY = Math.floor(Nodes.PIN_MAIN.offsetLeft - PinMain.HEIGHT / 2);
-  }
+  var mainPinY = Math.floor(Nodes.PIN_MAIN.offsetLeft - pinHeight);
 
   return mainPinY + ', ' + mainPinX;
 };
 
-var onActivateElements = function (evt) {
-  if (evt.button === MOUSE_LEFT_BUTTON || evt.key === ENTER_KEY) {
-    Nodes.MAP.classList.remove('map--faded');
-    Nodes.OFFER_FORM.classList.remove('ad-form--disabled');
-    Nodes.MAP_PINS_ELEMENT.appendChild(addPinToMap(generateOffers(OFFERS_COUNT)));
-    Nodes.ADDRESS_INPUT.value = getAddress(FORM_SATUS.active);
+var activateElements = function () {
+  Nodes.MAP.classList.remove('map--faded');
+  Nodes.OFFER_FORM.classList.remove('ad-form--disabled');
+  Nodes.MAP_PINS_ELEMENT.appendChild(addPinToMap(generateOffers(OFFERS_COUNT)));
+  Nodes.ADDRESS_INPUT.value = getAddress(FORM_SATUS.active);
 
-    toggleStateChildElements(Nodes.OFFER_FORM, FORM_SATUS.active);
-    toggleStateChildElements(Nodes.MAP_FORM, FORM_SATUS.active);
+  setChildrenStatuses(Nodes.OFFER_FORM, FORM_SATUS.active);
+  setChildrenStatuses(Nodes.MAP_FORM, FORM_SATUS.active);
 
-    Nodes.PIN_MAIN.removeEventListener('mousedown', onActivateElements);
-    Nodes.PIN_MAIN.removeEventListener('keydown', onActivateElements);
+  Nodes.PIN_MAIN.removeEventListener('mousedown', onPinMainClick);
+  Nodes.PIN_MAIN.removeEventListener('keydown', onPinMainEnterKeyDown);
+};
+
+var onPinMainClick = function (evt) {
+  if (evt.button === MOUSE_LEFT_BUTTON) {
+    activateElements();
   }
 };
 
-Nodes.PIN_MAIN.addEventListener('mousedown', onActivateElements);
+var onPinMainEnterKeyDown = function (evt) {
+  if (evt.key === ENTER_KEY) {
+    activateElements();
+  }
+};
 
-Nodes.PIN_MAIN.addEventListener('keydown', onActivateElements);
+Nodes.PIN_MAIN.addEventListener('mousedown', onPinMainClick);
+
+Nodes.PIN_MAIN.addEventListener('keydown', onPinMainEnterKeyDown);
 
 Nodes.ADDRESS_INPUT.value = getAddress(FORM_SATUS.inactive);
 
-toggleStateChildElements(Nodes.OFFER_FORM, FORM_SATUS.inactive);
-toggleStateChildElements(Nodes.MAP_FORM, FORM_SATUS.inactive);
+setChildrenStatuses(Nodes.OFFER_FORM, FORM_SATUS.inactive);
+setChildrenStatuses(Nodes.MAP_FORM, FORM_SATUS.inactive);
 
 
 // Validate rooms and guests
 
-var checkGuestForRooms = function (currentElement, secondElement, guests, rooms) {
+var checkGuestForRooms = function (currentElement, secondElement) {
+  var guests = parseInt(Nodes.GUESTS_COUNT.value, 10);
+  var rooms = parseInt(Nodes.ROOMS_COUNT.value, 10);
+
   if (rooms === 100 && guests !== 0) {
     currentElement.setCustomValidity(rooms + ' комнат не для гостей');
   } else if (rooms === 3 && guests === 0) {
@@ -212,14 +222,13 @@ var checkGuestForRooms = function (currentElement, secondElement, guests, rooms)
   }
 };
 
-Nodes.ROOMS_COUNT.addEventListener('change', function (evt) {
-  var guests = parseInt(Nodes.GUESTS_COUNT.value, 10);
-  var rooms = Number.parseInt(Nodes.ROOMS_COUNT.value, 10);
-  checkGuestForRooms(evt.target, Nodes.GUESTS_COUNT, guests, rooms);
-});
+var onRoomsCountChange = function (evt) {
+  checkGuestForRooms(evt.target, Nodes.GUESTS_COUNT);
+}
 
-Nodes.GUESTS_COUNT.addEventListener('change', function (evt) {
-  var guests = Number.parseInt(Nodes.GUESTS_COUNT.value, 10);
-  var rooms = Number.parseInt(Nodes.ROOMS_COUNT.value, 10);
-  checkGuestForRooms(evt.target, Nodes.ROOMS_COUNT, guests, rooms);
-});
+var onGuestsCountChange = function (evt) {
+  checkGuestForRooms(evt.target, Nodes.ROOMS_COUNT);
+}
+
+Nodes.ROOMS_COUNT.addEventListener('change', onRoomsCountChange);
+Nodes.GUESTS_COUNT.addEventListener('change', onGuestsCountChange);
