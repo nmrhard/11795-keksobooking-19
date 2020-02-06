@@ -151,16 +151,16 @@ var addPinToMap = function (offers) {
 
 // Activate map and forms
 
-var setChildrenStatuses  = function (element, status) {
+var setChildrenStatuses = function (element, status) {
   if (element.childElementCount) {
     for (var i = 0; i < element.children.length; i++) {
-     element.children[i].disabled = status;
-   }
- }
+      element.children[i].disabled = status;
+    }
+  }
 };
 
 var getAddress = function (status) {
-  var pinHeight = status ?  PinMain.HEIGHT / 2 : PinMain.HEIGHT_ACTIVE;
+  var pinHeight = status ? PinMain.HEIGHT / 2 : PinMain.HEIGHT_ACTIVE;
   var mainPinX = Math.floor(Nodes.PIN_MAIN.offsetTop - PinMain.WIDTH / 2);
   var mainPinY = Math.floor(Nodes.PIN_MAIN.offsetLeft - pinHeight);
 
@@ -224,11 +224,11 @@ var checkGuestForRooms = function (currentElement, secondElement) {
 
 var onRoomsCountChange = function (evt) {
   checkGuestForRooms(evt.target, Nodes.GUESTS_COUNT);
-}
+};
 
 var onGuestsCountChange = function (evt) {
   checkGuestForRooms(evt.target, Nodes.ROOMS_COUNT);
-}
+};
 
 Nodes.ROOMS_COUNT.addEventListener('change', onRoomsCountChange);
 Nodes.GUESTS_COUNT.addEventListener('change', onGuestsCountChange);
