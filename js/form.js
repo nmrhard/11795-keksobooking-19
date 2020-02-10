@@ -1,3 +1,5 @@
+'use strict';
+
 (function () {
   var checkGuestForRooms = function (currentElement, secondElement) {
     var guests = parseInt(window.nodes.GUESTS_COUNT.value, 10);

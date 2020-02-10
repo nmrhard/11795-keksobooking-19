@@ -54,5 +54,5 @@ window.utils = (function () {
     getRandomItems: getRandomItems,
     isMouseLeftEvent: isMouseLeftEvent,
     isEnterEvent: isEnterEvent
-  }
+  };
 })();
