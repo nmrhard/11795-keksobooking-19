@@ -1,10 +1,6 @@
 'use strict';
 
 var OFFERS_COUNT = 8;
-var Pin = {
-  WIDTH: 50,
-  HEIGHT: 70
-};
 var PinMain = {
   WIDTH: 65,
   HEIGHT: 65,
@@ -14,37 +10,12 @@ var FORM_SATUS = {
   inactive: true,
   active: false
 };
-var Nodes = {
-  MAP: document.querySelector('.map'),
-  PIN_MAIN: document.querySelector('.map__pin--main'),
-  MAP_PINS_ELEMENT: document.querySelector('.map__pins'),
-  PIN_TEMPLATE: document.querySelector('#pin').content.querySelector('.map__pin'),
-  CARD_TEMPLATE: document.querySelector('#card').content.querySelector('map__card'),
-  OFFER_FORM: document.querySelector('.ad-form'),
-  MAP_FORM: document.querySelector('.map__filters'),
-  ADDRESS_INPUT: document.querySelector('#address'),
-  ROOMS_COUNT: document.querySelector('#room_number'),
-  GUESTS_COUNT: document.querySelector('#capacity')
-};
-
-var renderPin = function (offer) {
-  var pinElement = window.nodes.PIN_TEMPLATE.cloneNode(true);
-  var pinX = offer.location.x - Pin.WIDTH / 2;
-  var pinY = offer.location.y - Pin.HEIGHT;
-
-  pinElement.setAttribute('style', 'left: ' + pinX + 'px; ' + 'top: ' + pinY + 'px;');
-
-  pinElement.querySelector('img').src = offer.author.avatar;
-  pinElement.querySelector('img').alt = offer.offer.title;
-
-  return pinElement;
-};
 
 var addPinToMap = function (offers) {
   var fragment = document.createDocumentFragment();
 
   offers.forEach(function (offer) {
-    fragment.appendChild(renderPin(offer));
+    fragment.appendChild(window.pin.renderPin(offer));
   });
 
   return fragment;
