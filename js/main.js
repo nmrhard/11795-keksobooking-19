@@ -28,7 +28,7 @@ var Nodes = {
 };
 
 var renderPin = function (offer) {
-  var pinElement = Nodes.PIN_TEMPLATE.cloneNode(true);
+  var pinElement = window.nodes.PIN_TEMPLATE.cloneNode(true);
   var pinX = offer.location.x - Pin.WIDTH / 2;
   var pinY = offer.location.y - Pin.HEIGHT;
 
@@ -62,23 +62,23 @@ var setChildrenStatuses = function (element, status) {
 
 var getAddress = function (status) {
   var pinHeight = status ? PinMain.HEIGHT / 2 : PinMain.HEIGHT_ACTIVE;
-  var mainPinX = Math.floor(Nodes.PIN_MAIN.offsetTop - PinMain.WIDTH / 2);
-  var mainPinY = Math.floor(Nodes.PIN_MAIN.offsetLeft - pinHeight);
+  var mainPinX = Math.floor(window.nodes.PIN_MAIN.offsetTop - PinMain.WIDTH / 2);
+  var mainPinY = Math.floor(window.nodes.PIN_MAIN.offsetLeft - pinHeight);
 
   return mainPinY + ', ' + mainPinX;
 };
 
 var activateElements = function () {
-  Nodes.MAP.classList.remove('map--faded');
-  Nodes.OFFER_FORM.classList.remove('ad-form--disabled');
-  Nodes.MAP_PINS_ELEMENT.appendChild(addPinToMap(window.data(OFFERS_COUNT)));
-  Nodes.ADDRESS_INPUT.value = getAddress(FORM_SATUS.active);
+  window.nodes.MAP.classList.remove('map--faded');
+  window.nodes.OFFER_FORM.classList.remove('ad-form--disabled');
+  window.nodes.MAP_PINS_ELEMENT.appendChild(addPinToMap(window.data(OFFERS_COUNT)));
+  window.nodes.ADDRESS_INPUT.value = getAddress(FORM_SATUS.active);
 
-  setChildrenStatuses(Nodes.OFFER_FORM, FORM_SATUS.active);
-  setChildrenStatuses(Nodes.MAP_FORM, FORM_SATUS.active);
+  setChildrenStatuses(window.nodes.OFFER_FORM, FORM_SATUS.active);
+  setChildrenStatuses(window.nodes.MAP_FORM, FORM_SATUS.active);
 
-  Nodes.PIN_MAIN.removeEventListener('mousedown', onPinMainClick);
-  Nodes.PIN_MAIN.removeEventListener('keydown', onPinMainEnterKeyDown);
+  window.nodes.PIN_MAIN.removeEventListener('mousedown', onPinMainClick);
+  window.nodes.PIN_MAIN.removeEventListener('keydown', onPinMainEnterKeyDown);
 };
 
 var onPinMainClick = function (evt) {
@@ -89,21 +89,21 @@ var onPinMainEnterKeyDown = function (evt) {
   window.utils.isEnterEvent(evt, activateElements);
 };
 
-Nodes.PIN_MAIN.addEventListener('mousedown', onPinMainClick);
+window.nodes.PIN_MAIN.addEventListener('mousedown', onPinMainClick);
 
-Nodes.PIN_MAIN.addEventListener('keydown', onPinMainEnterKeyDown);
+window.nodes.PIN_MAIN.addEventListener('keydown', onPinMainEnterKeyDown);
 
-Nodes.ADDRESS_INPUT.value = getAddress(FORM_SATUS.inactive);
+window.nodes.ADDRESS_INPUT.value = getAddress(FORM_SATUS.inactive);
 
-setChildrenStatuses(Nodes.OFFER_FORM, FORM_SATUS.inactive);
-setChildrenStatuses(Nodes.MAP_FORM, FORM_SATUS.inactive);
+setChildrenStatuses(window.nodes.OFFER_FORM, FORM_SATUS.inactive);
+setChildrenStatuses(window.nodes.MAP_FORM, FORM_SATUS.inactive);
 
 
 // Validate rooms and guests
 
 var checkGuestForRooms = function (currentElement, secondElement) {
-  var guests = parseInt(Nodes.GUESTS_COUNT.value, 10);
-  var rooms = parseInt(Nodes.ROOMS_COUNT.value, 10);
+  var guests = parseInt(window.nodes.GUESTS_COUNT.value, 10);
+  var rooms = parseInt(window.nodes.ROOMS_COUNT.value, 10);
 
   if (rooms === 100 && guests !== 0) {
     currentElement.setCustomValidity(rooms + ' комнат не для гостей');
@@ -120,12 +120,12 @@ var checkGuestForRooms = function (currentElement, secondElement) {
 };
 
 var onRoomsCountChange = function (evt) {
-  checkGuestForRooms(evt.target, Nodes.GUESTS_COUNT);
+  checkGuestForRooms(evt.target, window.nodes.GUESTS_COUNT);
 };
 
 var onGuestsCountChange = function (evt) {
-  checkGuestForRooms(evt.target, Nodes.ROOMS_COUNT);
+  checkGuestForRooms(evt.target, window.nodes.ROOMS_COUNT);
 };
 
-Nodes.ROOMS_COUNT.addEventListener('change', onRoomsCountChange);
-Nodes.GUESTS_COUNT.addEventListener('change', onGuestsCountChange);
+window.nodes.ROOMS_COUNT.addEventListener('change', onRoomsCountChange);
+window.nodes.GUESTS_COUNT.addEventListener('change', onGuestsCountChange);
