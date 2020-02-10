@@ -1,8 +1,6 @@
 'use strict';
 
 var OFFERS_COUNT = 8;
-var MOUSE_LEFT_BUTTON = 0;
-var ENTER_KEY = 'Enter';
 var TYPE_APARTMENT = ['palace', 'flat', 'house', 'bungalo'];
 var CHECKIN = ['12:00', '13:00', '14:00'];
 var CHECKOUT = ['12:00', '13:00', '14:00'];
@@ -56,56 +54,26 @@ var Nodes = {
   GUESTS_COUNT: document.querySelector('#capacity')
 };
 
-var getPictureNumber = function (offer) {
-  return offer.toString().padStart(2, '0');
-};
-
-var getRandomBetween = function (min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-};
-
-var getRandomIndex = function (arr) {
-  return Math.floor(Math.random() * arr.length);
-};
-
-var getRandomItem = function (arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
-};
-
-var getRandomItems = function (arr) {
-  var randomElement = 0;
-  var randomArr = [];
-  var tempArr = arr.slice();
-  var arrLenght = getRandomBetween(1, tempArr.length);
-
-  for (var i = 0; i < arrLenght; i++) {
-    randomElement = getRandomIndex(tempArr);
-    randomArr.push(tempArr.splice(randomElement, 1));
-  }
-
-  return randomArr;
-};
-
 var createOffer = function (numberOfOffer) {
-  var locationX = getRandomBetween(OfferLocation.X.MIN, OfferLocation.X.MAX);
-  var locationY = getRandomBetween(OfferLocation.Y.MIN, OfferLocation.Y.MAX);
+  var locationX = window.utils.getRandomBetween(OfferLocation.X.MIN, OfferLocation.X.MAX);
+  var locationY = window.utils.getRandomBetween(OfferLocation.Y.MIN, OfferLocation.Y.MAX);
 
   var offer = {
     author: {
-      avatar: 'img/avatars/user' + getPictureNumber(numberOfOffer) + '.png'
+      avatar: 'img/avatars/user' + window.utils.getPictureNumber(numberOfOffer) + '.png'
     },
     offer: {
       title: 'Предложение ' + numberOfOffer,
       address: locationX + ',' + locationY,
-      price: getRandomBetween(Price.MIN, Price.MAX),
-      type: getRandomItem(TYPE_APARTMENT),
-      rooms: getRandomBetween(Rooms.MIN, Rooms.MAX),
-      guests: getRandomBetween(Guests.MIN, Guests.MAX),
-      checkin: getRandomItem(CHECKIN),
-      checkout: getRandomItem(CHECKOUT),
-      features: getRandomItems(FEATURES),
+      price: window.utils.getRandomBetween(Price.MIN, Price.MAX),
+      type: window.utils.getRandomItem(TYPE_APARTMENT),
+      rooms: window.utils.getRandomBetween(Rooms.MIN, Rooms.MAX),
+      guests: window.utils.getRandomBetween(Guests.MIN, Guests.MAX),
+      checkin: window.utils.getRandomItem(CHECKIN),
+      checkout: window.utils.getRandomItem(CHECKOUT),
+      features: window.utils.getRandomItems(FEATURES),
       description: 'Описание ' + numberOfOffer,
-      photos: getRandomItems(PHOTOS)
+      photos: window.utils.getRandomItems(PHOTOS)
     },
     location: {
       x: locationX,
@@ -181,15 +149,11 @@ var activateElements = function () {
 };
 
 var onPinMainClick = function (evt) {
-  if (evt.button === MOUSE_LEFT_BUTTON) {
-    activateElements();
-  }
+  window.utils.isMouseLeftEvent(evt, activateElements);
 };
 
 var onPinMainEnterKeyDown = function (evt) {
-  if (evt.key === ENTER_KEY) {
-    activateElements();
-  }
+  window.utils.isEnterEvent(evt, activateElements);
 };
 
 Nodes.PIN_MAIN.addEventListener('mousedown', onPinMainClick);
