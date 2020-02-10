@@ -31,7 +31,7 @@
   var activateElements = function () {
     window.nodes.MAP.classList.remove('map--faded');
     window.nodes.OFFER_FORM.classList.remove('ad-form--disabled');
-    window.nodes.MAP_PINS_ELEMENT.appendChild(addPinToMap(window.data(OFFERS_COUNT)));
+    window.nodes.MAP_PINS_ELEMENT.appendChild(window.map.addPinToMap(window.data(OFFERS_COUNT)));
     window.nodes.ADDRESS_INPUT.value = getAddress(FORM_SATUS.active);
 
     setChildrenStatuses(window.nodes.OFFER_FORM, FORM_SATUS.active);
