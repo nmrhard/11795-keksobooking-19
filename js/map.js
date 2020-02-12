@@ -17,5 +17,4 @@
   window.map = {
     succesHandler: succesHandler
   }
-
 })();
