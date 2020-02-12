@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var addPinToMap = function (offers) {
+  var renderPins = function (offers) {
     var fragment = document.createDocumentFragment();
 
     offers.forEach(function (offer) {
@@ -12,6 +12,6 @@
   };
 
   window.map = {
-    addPinToMap: addPinToMap
+    renderPins: renderPins
   };
 })();

@@ -2,8 +2,8 @@
 
 (function () {
   var checkGuestForRooms = function (currentElement, secondElement) {
-    var guests = parseInt(window.nodes.GUESTS_COUNT.value, 10);
-    var rooms = parseInt(window.nodes.ROOMS_COUNT.value, 10);
+    var guests = parseInt(window.Nodes.GUESTS_COUNT.value, 10);
+    var rooms = parseInt(window.Nodes.ROOMS_COUNT.value, 10);
 
     if (rooms === 100 && guests !== 0) {
       currentElement.setCustomValidity(rooms + ' комнат не для гостей');
@@ -20,13 +20,13 @@
   };
 
   var onRoomsCountChange = function (evt) {
-    checkGuestForRooms(evt.target, window.nodes.GUESTS_COUNT);
+    checkGuestForRooms(evt.target, window.Nodes.GUESTS_COUNT);
   };
 
   var onGuestsCountChange = function (evt) {
-    checkGuestForRooms(evt.target, window.nodes.ROOMS_COUNT);
+    checkGuestForRooms(evt.target, window.Nodes.ROOMS_COUNT);
   };
 
-  window.nodes.ROOMS_COUNT.addEventListener('change', onRoomsCountChange);
-  window.nodes.GUESTS_COUNT.addEventListener('change', onGuestsCountChange);
+  window.Nodes.ROOMS_COUNT.addEventListener('change', onRoomsCountChange);
+  window.Nodes.GUESTS_COUNT.addEventListener('change', onGuestsCountChange);
 })();

@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  window.nodes = {
+  window.Nodes = {
     MAP: document.querySelector('.map'),
     PIN_MAIN: document.querySelector('.map__pin--main'),
     MAP_PINS_ELEMENT: document.querySelector('.map__pins'),
