@@ -1,17 +1,21 @@
 'use strict';
 
 (function () {
-  var renderPins = function (offers) {
+
+  var succesHandler = function (offers) {
     var fragment = document.createDocumentFragment();
 
-    offers.forEach(function (offer) {
-      fragment.appendChild(window.pin.renderPin(offer));
+    offers.forEach (function (offer) {
+      if (offer.hasOwnProperty('offer')) {
+        fragment.appendChild(window.pin.renderPin(offer));
+      }
     });
 
-    return fragment;
+    window.Nodes.MAP_PINS_ELEMENT.appendChild(fragment);
   };
 
   window.map = {
-    renderPins: renderPins
-  };
+    succesHandler: succesHandler
+  }
+
 })();

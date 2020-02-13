@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var OFFERS_COUNT = 8;
   var PinMain = {
     WIDTH: 65,
     HEIGHT: 65,
@@ -31,7 +30,8 @@
   var activateElements = function () {
     window.Nodes.MAP.classList.remove('map--faded');
     window.Nodes.OFFER_FORM.classList.remove('ad-form--disabled');
-    window.Nodes.MAP_PINS_ELEMENT.appendChild(window.map.renderPins(window.data(OFFERS_COUNT)));
+    window.backend.load(window.map.succesHandler, window.Nodes.errorHandler);
+
     window.Nodes.ADDRESS_INPUT.value = getAddress(FORM_SATUS.active);
 
     setChildrenStatuses(window.Nodes.OFFER_FORM, FORM_SATUS.active);
