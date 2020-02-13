@@ -29,5 +29,5 @@
       node.appendChild(spanElement);
       document.body.insertAdjacentElement('afterbegin', node);
     }
-  }
+  };
 })();

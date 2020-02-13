@@ -5,7 +5,7 @@
   var succesHandler = function (offers) {
     var fragment = document.createDocumentFragment();
 
-    offers.forEach (function (offer) {
+    offers.forEach(function (offer) {
       if (offer.hasOwnProperty('offer')) {
         fragment.appendChild(window.pin.renderPin(offer));
       }
@@ -16,5 +16,5 @@
 
   window.map = {
     succesHandler: succesHandler
-  }
+  };
 })();
