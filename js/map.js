@@ -1,17 +1,20 @@
 'use strict';
 
 (function () {
-  var addPinToMap = function (offers) {
+
+  var succesHandler = function (offers) {
     var fragment = document.createDocumentFragment();
 
     offers.forEach(function (offer) {
-      fragment.appendChild(window.pin.renderPin(offer));
+      if (offer.hasOwnProperty('offer')) {
+        fragment.appendChild(window.pin.renderPin(offer));
+      }
     });
 
-    return fragment;
+    window.Nodes.MAP_PINS_ELEMENT.appendChild(fragment);
   };
 
   window.map = {
-    addPinToMap: addPinToMap
+    succesHandler: succesHandler
   };
 })();

@@ -12,10 +12,6 @@ window.utils = (function () {
     return Math.floor(Math.random() * (max - min + 1) + min);
   };
 
-  var getRandomIndex = function (arr) {
-    return Math.floor(Math.random() * arr.length);
-  };
-
   var getRandomItem = function (arr) {
     return arr[Math.floor(Math.random() * arr.length)];
   };
@@ -27,7 +23,7 @@ window.utils = (function () {
     var arrLenght = getRandomBetween(1, tempArr.length);
 
     for (var i = 0; i < arrLenght; i++) {
-      randomElement = getRandomIndex(tempArr);
+      randomElement = getRandomItem(tempArr);
       randomArr.push(tempArr.splice(randomElement, 1));
     }
 
@@ -49,7 +45,6 @@ window.utils = (function () {
   return {
     getPictureNumber: getPictureNumber,
     getRandomBetween: getRandomBetween,
-    getRandomIndex: getRandomIndex,
     getRandomItem: getRandomItem,
     getRandomItems: getRandomItems,
     isMouseLeftEvent: isMouseLeftEvent,
