@@ -1,6 +1,6 @@
 'use strict';
 
-window.utils = (function () {
+window.util = (function () {
   var MOUSE_LEFT_BUTTON = 0;
   var ENTER_KEY = 'Enter';
 
@@ -42,12 +42,31 @@ window.utils = (function () {
     }
   };
 
+  var errorHandler = function (errorMessage) {
+    document.body.style = 'position: relative';
+    var node = document.createElement('div');
+    var spanElement = document.createElement('span');
+    node.style = 'z-index: 100; display: flex; padding-top: 280px; color: #ffffff; background-color: rgba(0,0,0,0.5);';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.top = 0;
+    node.style.width = '100%';
+    node.style.height = '100%';
+    node.style.fontSize = '50px';
+
+    spanElement.style = 'margin: 0 auto; color: #00000';
+    spanElement.textContent = errorMessage;
+    node.appendChild(spanElement);
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
+
   return {
     getPictureNumber: getPictureNumber,
     getRandomBetween: getRandomBetween,
     getRandomItem: getRandomItem,
     getRandomItems: getRandomItems,
     isMouseLeftEvent: isMouseLeftEvent,
-    isEnterEvent: isEnterEvent
+    isEnterEvent: isEnterEvent,
+    errorHandler: errorHandler
   };
 })();

@@ -21,40 +21,40 @@
 
   var getAddress = function (status) {
     var pinHeight = status ? PinMain.HEIGHT / 2 : PinMain.HEIGHT_ACTIVE;
-    var mainPinX = Math.floor(window.Nodes.PIN_MAIN.offsetTop - PinMain.WIDTH / 2);
-    var mainPinY = Math.floor(window.Nodes.PIN_MAIN.offsetLeft - pinHeight);
+    var mainPinX = Math.floor(window.Node.PIN_MAIN.offsetTop - PinMain.WIDTH / 2);
+    var mainPinY = Math.floor(window.Node.PIN_MAIN.offsetLeft - pinHeight);
 
     return mainPinY + ', ' + mainPinX;
   };
 
   var activateElements = function () {
-    window.Nodes.MAP.classList.remove('map--faded');
-    window.Nodes.OFFER_FORM.classList.remove('ad-form--disabled');
-    window.backend.load(window.map.succesHandler, window.Nodes.errorHandler);
+    window.Node.MAP.classList.remove('map--faded');
+    window.Node.OFFER_FORM.classList.remove('ad-form--disabled');
+    window.backend.load(window.map.succesHandler, window.util.errorHandler);
 
-    window.Nodes.ADDRESS_INPUT.value = getAddress(FORM_SATUS.active);
+    window.Node.ADDRESS_INPUT.value = getAddress(FORM_SATUS.active);
 
-    setChildrenStatuses(window.Nodes.OFFER_FORM, FORM_SATUS.active);
-    setChildrenStatuses(window.Nodes.MAP_FORM, FORM_SATUS.active);
+    setChildrenStatuses(window.Node.OFFER_FORM, FORM_SATUS.active);
+    setChildrenStatuses(window.Node.MAP_FORM, FORM_SATUS.active);
 
-    window.Nodes.PIN_MAIN.removeEventListener('mousedown', onPinMainClick);
-    window.Nodes.PIN_MAIN.removeEventListener('keydown', onPinMainEnterKeyDown);
+    window.Node.PIN_MAIN.removeEventListener('mousedown', onPinMainClick);
+    window.Node.PIN_MAIN.removeEventListener('keydown', onPinMainEnterKeyDown);
   };
 
   var onPinMainClick = function (evt) {
-    window.utils.isMouseLeftEvent(evt, activateElements);
+    window.util.isMouseLeftEvent(evt, activateElements);
   };
 
   var onPinMainEnterKeyDown = function (evt) {
-    window.utils.isEnterEvent(evt, activateElements);
+    window.util.isEnterEvent(evt, activateElements);
   };
 
-  window.Nodes.PIN_MAIN.addEventListener('mousedown', onPinMainClick);
+  window.Node.PIN_MAIN.addEventListener('mousedown', onPinMainClick);
 
-  window.Nodes.PIN_MAIN.addEventListener('keydown', onPinMainEnterKeyDown);
+  window.Node.PIN_MAIN.addEventListener('keydown', onPinMainEnterKeyDown);
 
-  window.Nodes.ADDRESS_INPUT.value = getAddress(FORM_SATUS.inactive);
+  window.Node.ADDRESS_INPUT.value = getAddress(FORM_SATUS.inactive);
 
-  setChildrenStatuses(window.Nodes.OFFER_FORM, FORM_SATUS.inactive);
-  setChildrenStatuses(window.Nodes.MAP_FORM, FORM_SATUS.inactive);
+  setChildrenStatuses(window.Node.OFFER_FORM, FORM_SATUS.inactive);
+  setChildrenStatuses(window.Node.MAP_FORM, FORM_SATUS.inactive);
 })();

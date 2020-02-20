@@ -7,7 +7,7 @@ window.pin = (function () {
   };
 
   var renderPin = function (offer) {
-    var pinElement = window.Nodes.PIN_TEMPLATE.cloneNode(true);
+    var pinElement = window.Node.PIN_TEMPLATE.cloneNode(true);
     var pinX = offer.location.x - Pin.WIDTH / 2;
     var pinY = offer.location.y - Pin.HEIGHT;
 

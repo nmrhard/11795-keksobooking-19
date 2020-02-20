@@ -11,7 +11,7 @@
       }
     });
 
-    window.Nodes.MAP_PINS_ELEMENT.appendChild(fragment);
+    window.Node.MAP_PINS_ELEMENT.appendChild(fragment);
   };
 
   window.map = {
