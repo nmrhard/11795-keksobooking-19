@@ -27,7 +27,7 @@
     return mainPinY + ', ' + mainPinX;
   };
 
-  var succesHandler = function (offers) {
+  var onSucces = function (offers) {
     var fragment = document.createDocumentFragment();
 
     offers.forEach(function (offer) {
@@ -42,9 +42,9 @@
   var activateElements = function () {
     window.Node.MAP.classList.remove('map--faded');
     window.Node.OFFER_FORM.classList.remove('ad-form--disabled');
-    window.backend.load(succesHandler, window.util.errorHandler);
-    window.Node.ADDRESS_INPUT.value = getAddress(FORM_SATUS.active);
+    window.backend.load(onSucces, window.util.onError);
     window.Node.FILTER_CONTAINER.before(window.map.renderCards(window.data(1)));
+    window.Node.ADDRESS_INPUT.value = getAddress(FORM_SATUS.active);
 
 
     setChildrenStatuses(window.Node.OFFER_FORM, FORM_SATUS.active);

@@ -42,7 +42,7 @@ window.util = (function () {
     }
   };
 
-  var errorHandler = function (errorMessage) {
+  var onError = function (errorMessage) {
     document.body.style = 'position: relative';
     var node = document.createElement('div');
     var spanElement = document.createElement('span');
@@ -67,6 +67,6 @@ window.util = (function () {
     getRandomItems: getRandomItems,
     isMouseLeftEvent: isMouseLeftEvent,
     isEnterEvent: isEnterEvent,
-    errorHandler: errorHandler
+    onError: onError
   };
 })();
