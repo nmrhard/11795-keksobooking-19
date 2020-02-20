@@ -27,12 +27,25 @@
     return mainPinY + ', ' + mainPinX;
   };
 
+  var succesHandler = function (offers) {
+    var fragment = document.createDocumentFragment();
+
+    offers.forEach(function (offer) {
+      if (offer.hasOwnProperty('offer')) {
+        fragment.appendChild(window.pin.renderPin(offer));
+      }
+    });
+
+    window.Node.MAP_PINS_ELEMENT.appendChild(fragment);
+  };
+
   var activateElements = function () {
     window.Node.MAP.classList.remove('map--faded');
     window.Node.OFFER_FORM.classList.remove('ad-form--disabled');
-    window.backend.load(window.map.succesHandler, window.util.errorHandler);
-
+    window.backend.load(succesHandler, window.util.errorHandler);
     window.Node.ADDRESS_INPUT.value = getAddress(FORM_SATUS.active);
+    window.Node.FILTER_CONTAINER.before(window.map.renderCards(window.data(1)));
+
 
     setChildrenStatuses(window.Node.OFFER_FORM, FORM_SATUS.active);
     setChildrenStatuses(window.Node.MAP_FORM, FORM_SATUS.active);
@@ -50,7 +63,6 @@
   };
 
   window.Node.PIN_MAIN.addEventListener('mousedown', onPinMainClick);
-
   window.Node.PIN_MAIN.addEventListener('keydown', onPinMainEnterKeyDown);
 
   window.Node.ADDRESS_INPUT.value = getAddress(FORM_SATUS.inactive);

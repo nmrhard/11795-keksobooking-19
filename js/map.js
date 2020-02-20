@@ -1,20 +1,19 @@
 'use strict';
 
-(function () {
-
-  var succesHandler = function (offers) {
+window.map = (function () {
+  var renderCards = function (offers) {
     var fragment = document.createDocumentFragment();
 
     offers.forEach(function (offer) {
       if (offer.hasOwnProperty('offer')) {
-        fragment.appendChild(window.pin.renderPin(offer));
+        fragment.appendChild(window.card.renderCard(offer));
       }
     });
 
-    window.Node.MAP_PINS_ELEMENT.appendChild(fragment);
+    return fragment;
   };
 
-  window.map = {
-    succesHandler: succesHandler
+  return {
+    renderCards: renderCards
   };
 })();
