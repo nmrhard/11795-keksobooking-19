@@ -30,25 +30,25 @@
   };
 
   var createOffer = function (numberOfOffer) {
-    var locationX = window.utils.getRandomBetween(OfferLocation.X.MIN, OfferLocation.X.MAX);
-    var locationY = window.utils.getRandomBetween(OfferLocation.Y.MIN, OfferLocation.Y.MAX);
+    var locationX = window.util.getRandomBetween(OfferLocation.X.MIN, OfferLocation.X.MAX);
+    var locationY = window.util.getRandomBetween(OfferLocation.Y.MIN, OfferLocation.Y.MAX);
 
     var offer = {
       author: {
-        avatar: 'img/avatars/user' + window.utils.getPictureNumber(numberOfOffer) + '.png'
+        avatar: 'img/avatars/user' + window.util.getPictureNumber(numberOfOffer) + '.png'
       },
       offer: {
         title: 'Предложение ' + numberOfOffer,
         address: locationX + ',' + locationY,
-        price: window.utils.getRandomBetween(Price.MIN, Price.MAX),
-        type: window.utils.getRandomItem(TYPE_APARTMENT),
-        rooms: window.utils.getRandomBetween(Rooms.MIN, Rooms.MAX),
-        guests: window.utils.getRandomBetween(Guests.MIN, Guests.MAX),
-        checkin: window.utils.getRandomItem(CHECKIN),
-        checkout: window.utils.getRandomItem(CHECKOUT),
-        features: window.utils.getRandomItems(FEATURES),
+        price: window.util.getRandomBetween(Price.MIN, Price.MAX),
+        type: window.util.getRandomItem(TYPE_APARTMENT),
+        rooms: window.util.getRandomBetween(Rooms.MIN, Rooms.MAX),
+        guests: window.util.getRandomBetween(Guests.MIN, Guests.MAX),
+        checkin: window.util.getRandomItem(CHECKIN),
+        checkout: window.util.getRandomItem(CHECKOUT),
+        features: window.util.getRandomItems(FEATURES),
         description: 'Описание ' + numberOfOffer,
-        photos: window.utils.getRandomItems(PHOTOS)
+        photos: window.util.getRandomItems(PHOTOS)
       },
       location: {
         x: locationX,

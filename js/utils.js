@@ -1,6 +1,6 @@
 'use strict';
 
-window.utils = (function () {
+window.util = (function () {
   var MOUSE_LEFT_BUTTON = 0;
   var ENTER_KEY = 'Enter';
 
@@ -17,15 +17,13 @@ window.utils = (function () {
   };
 
   var getRandomItems = function (arr) {
-    var randomElement = 0;
-    var randomArr = [];
-    var tempArr = arr.slice();
-    var arrLenght = getRandomBetween(1, tempArr.length);
-
-    for (var i = 0; i < arrLenght; i++) {
-      randomElement = getRandomItem(tempArr);
-      randomArr.push(tempArr.splice(randomElement, 1));
-    }
+    var arrLenght = getRandomBetween(1, arr.length);
+    var randomArr = arr.filter(function (item, index) {
+      if (arrLenght > index) {
+        return true;
+      }
+      return false;
+    });
 
     return randomArr;
   };
@@ -42,12 +40,40 @@ window.utils = (function () {
     }
   };
 
+  var onError = function (errorMessage) {
+    document.body.style = 'position: relative';
+    var node = document.createElement('div');
+    var spanElement = document.createElement('span');
+    node.style = 'z-index: 100; display: flex; padding-top: 280px; color: #ffffff; background-color: rgba(0,0,0,0.5);';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.top = 0;
+    node.style.width = '100%';
+    node.style.height = '100%';
+    node.style.fontSize = '50px';
+
+    spanElement.style = 'margin: 0 auto; color: #00000';
+    spanElement.textContent = errorMessage;
+    node.appendChild(spanElement);
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
+
+  var setChildrenStatuses = function (element, status) {
+    if (element.childElementCount) {
+      for (var i = 0; i < element.children.length; i++) {
+        element.children[i].disabled = status;
+      }
+    }
+  };
+
   return {
     getPictureNumber: getPictureNumber,
     getRandomBetween: getRandomBetween,
     getRandomItem: getRandomItem,
     getRandomItems: getRandomItems,
     isMouseLeftEvent: isMouseLeftEvent,
-    isEnterEvent: isEnterEvent
+    isEnterEvent: isEnterEvent,
+    onError: onError,
+    setChildrenStatuses: setChildrenStatuses
   };
 })();
