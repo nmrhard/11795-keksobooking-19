@@ -19,7 +19,20 @@ window.pin = (function () {
     return pinElement;
   };
 
+  var renderPins = function (offers) {
+    var fragment = document.createDocumentFragment();
+
+    offers.forEach(function (offer) {
+      if (offer.hasOwnProperty('offer')) {
+        fragment.appendChild(window.pin.renderPin(offer));
+      }
+    });
+
+    return fragment;
+  };
+
   return {
-    renderPin: renderPin
+    renderPin: renderPin,
+    renderPins: renderPins
   };
 })();

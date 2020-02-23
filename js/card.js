@@ -17,22 +17,12 @@ window.card = (function () {
     'conditioner': 'Кондиционер'
   };
 
-  var getRoomsGuests = function (rooms, guests) {
-    var roomName = 'комнаты';
-    var guestName = 'гостей';
+  var ROOM_PLURAL = ['комната', 'комнаты', 'комнат'];
+  var GUSTS_PLURAL = ['гостя', 'гостей', 'гостей'];
 
-    if (rooms === 1) {
-      roomName = 'комната';
-    }
-    if (rooms > 4) {
-      roomName = 'комнат';
-    }
-
-    if (guests === 1) {
-      guestName = 'гостя';
-    }
-
-    return rooms + ' ' + roomName + ' для ' + guests + guestName;
+  var pluralize = function (count, words) {
+    var cases = [2, 0, 1, 1, 1, 2];
+    return count + ' ' + words[(count % 100 > 4 && count % 100 < 20) ? 2 : cases[Math.min(count % 10, 5)]];
   };
 
   var getOfferFeatures = function (element, features) {
@@ -40,8 +30,8 @@ window.card = (function () {
     var featuresClassName = 'popup__feature';
 
     var fragment = document.createDocumentFragment();
-    var newItemElement = document.createElement('li');
     features.forEach(function (featuresItem) {
+      var newItemElement = document.createElement('li');
       newItemElement.className = featuresClassName + ' ' + featuresClassName + '--' + featuresItem;
       newItemElement.textContent = FEATURES[featuresItem];
       fragment.appendChild(newItemElement);
@@ -54,11 +44,11 @@ window.card = (function () {
     var fragment = document.createDocumentFragment();
 
     photoElement.src = photos[0];
-    for (var i = 1; i < photos.length; i++) {
+    photos.slice(1).forEach(function (photo) {
       var newPhotoElement = photoElement.cloneNode();
-      newPhotoElement.src = photos[i];
+      newPhotoElement.src = photo;
       fragment.appendChild(newPhotoElement);
-    }
+    });
 
     return fragment;
   };
@@ -71,7 +61,7 @@ window.card = (function () {
     cardElement.querySelector('.popup__text--address').textContent = data.offer.address;
     cardElement.querySelector('.popup__text--price').textContent = data.offer.price + '₽/ночь';
     cardElement.querySelector('.popup__type').textContent = TYPE_APARTMENT[data.offer.type];
-    cardElement.querySelector('.popup__text--capacity').textContent = getRoomsGuests(data.offer.rooms, data.offer.guests);
+    cardElement.querySelector('.popup__text--capacity').textContent = pluralize(data.offer.rooms, ROOM_PLURAL) + ' для ' + pluralize(data.offer.guests, GUSTS_PLURAL);
     cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + data.offer.checkin + ' выезд до ' + data.offer.checkout;
     var featuresElement = cardElement.querySelector('.popup__features');
 

@@ -17,15 +17,13 @@ window.util = (function () {
   };
 
   var getRandomItems = function (arr) {
-    var randomElement = 0;
-    var randomArr = [];
-    var tempArr = arr.slice();
-    var arrLenght = getRandomBetween(1, tempArr.length);
-
-    for (var i = 0; i < arrLenght; i++) {
-      randomElement = getRandomItem(tempArr);
-      randomArr.push(tempArr.splice(randomElement, 1));
-    }
+    var arrLenght = getRandomBetween(1, arr.length);
+    var randomArr = arr.filter(function (item, index) {
+      if (arrLenght > index) {
+        return true;
+      }
+      return false;
+    });
 
     return randomArr;
   };
@@ -60,6 +58,14 @@ window.util = (function () {
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
+  var setChildrenStatuses = function (element, status) {
+    if (element.childElementCount) {
+      for (var i = 0; i < element.children.length; i++) {
+        element.children[i].disabled = status;
+      }
+    }
+  };
+
   return {
     getPictureNumber: getPictureNumber,
     getRandomBetween: getRandomBetween,
@@ -67,6 +73,7 @@ window.util = (function () {
     getRandomItems: getRandomItems,
     isMouseLeftEvent: isMouseLeftEvent,
     isEnterEvent: isEnterEvent,
-    onError: onError
+    onError: onError,
+    setChildrenStatuses: setChildrenStatuses
   };
 })();

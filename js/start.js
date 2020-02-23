@@ -11,14 +11,6 @@
     active: false
   };
 
-  var setChildrenStatuses = function (element, status) {
-    if (element.childElementCount) {
-      for (var i = 0; i < element.children.length; i++) {
-        element.children[i].disabled = status;
-      }
-    }
-  };
-
   var getAddress = function (status) {
     var pinHeight = status ? PinMain.HEIGHT / 2 : PinMain.HEIGHT_ACTIVE;
     var mainPinX = Math.floor(window.Node.PIN_MAIN.offsetTop - PinMain.WIDTH / 2);
@@ -28,15 +20,8 @@
   };
 
   var onSucces = function (offers) {
-    var fragment = document.createDocumentFragment();
-
-    offers.forEach(function (offer) {
-      if (offer.hasOwnProperty('offer')) {
-        fragment.appendChild(window.pin.renderPin(offer));
-      }
-    });
-
-    window.Node.MAP_PINS_ELEMENT.appendChild(fragment);
+    var pins = window.pin.renderPins(offers);
+    window.Node.MAP_PINS_ELEMENT.appendChild(pins);
   };
 
   var activateElements = function () {
@@ -47,8 +32,8 @@
     window.Node.ADDRESS_INPUT.value = getAddress(FORM_SATUS.active);
 
 
-    setChildrenStatuses(window.Node.OFFER_FORM, FORM_SATUS.active);
-    setChildrenStatuses(window.Node.MAP_FORM, FORM_SATUS.active);
+    window.util.setChildrenStatuses(window.Node.OFFER_FORM, FORM_SATUS.active);
+    window.util.setChildrenStatuses(window.Node.MAP_FORM, FORM_SATUS.active);
 
     window.Node.PIN_MAIN.removeEventListener('mousedown', onPinMainClick);
     window.Node.PIN_MAIN.removeEventListener('keydown', onPinMainEnterKeyDown);
@@ -67,6 +52,6 @@
 
   window.Node.ADDRESS_INPUT.value = getAddress(FORM_SATUS.inactive);
 
-  setChildrenStatuses(window.Node.OFFER_FORM, FORM_SATUS.inactive);
-  setChildrenStatuses(window.Node.MAP_FORM, FORM_SATUS.inactive);
+  window.util.setChildrenStatuses(window.Node.OFFER_FORM, FORM_SATUS.inactive);
+  window.util.setChildrenStatuses(window.Node.MAP_FORM, FORM_SATUS.inactive);
 })();
