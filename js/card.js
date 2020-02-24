@@ -1,14 +1,14 @@
 'use strict';
 
 window.card = (function () {
-  var TYPE_APARTMENT = {
+  var TYPE_APARTMENT_MAP = {
     'flat': 'Квартира',
     'bungalo': 'Бунгало',
     'house': 'Дом',
     'palace': 'Дворец'
   };
 
-  var FEATURES = {
+  var FEATURES_MAP = {
     'wifi': 'Wi-Fi',
     'dishwasher': 'Посудомоечная машина',
     'parking': 'Паркинг',
@@ -33,7 +33,7 @@ window.card = (function () {
     features.forEach(function (featuresItem) {
       var newItemElement = document.createElement('li');
       newItemElement.className = featuresClassName + ' ' + featuresClassName + '--' + featuresItem;
-      newItemElement.textContent = FEATURES[featuresItem];
+      newItemElement.textContent = FEATURES_MAP[featuresItem];
       fragment.appendChild(newItemElement);
     });
 
@@ -60,7 +60,7 @@ window.card = (function () {
     cardElement.querySelector('.popup__title').textContent = data.offer.title;
     cardElement.querySelector('.popup__text--address').textContent = data.offer.address;
     cardElement.querySelector('.popup__text--price').textContent = data.offer.price + '₽/ночь';
-    cardElement.querySelector('.popup__type').textContent = TYPE_APARTMENT[data.offer.type];
+    cardElement.querySelector('.popup__type').textContent = TYPE_APARTMENT_MAP[data.offer.type];
     cardElement.querySelector('.popup__text--capacity').textContent = pluralize(data.offer.rooms, ROOM_PLURAL) + ' для ' + pluralize(data.offer.guests, GUESTS_PLURAL);
     cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + data.offer.checkin + ' выезд до ' + data.offer.checkout;
     var featuresElement = cardElement.querySelector('.popup__features');

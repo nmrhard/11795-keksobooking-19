@@ -12,6 +12,8 @@
     ADDRESS_INPUT: document.querySelector('#address'),
     ROOMS_COUNT: document.querySelector('#room_number'),
     GUESTS_COUNT: document.querySelector('#capacity'),
+    ROOM_TYPE: document.querySelector('#type'),
+    ROOM_PRICE: document.querySelector('#price'),
     FILTER_CONTAINER: document.querySelector('.map__filters-container')
   };
 })();
