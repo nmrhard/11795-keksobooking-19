@@ -52,7 +52,7 @@
 
   var setTime = function (currentElement, secondElement) {
     secondElement.value = currentElement.value;
-  }
+  };
 
   var onRoomsCountChange = function (evt) {
     checkGuestForRooms(evt.target, window.Node.GUESTS_COUNT);
