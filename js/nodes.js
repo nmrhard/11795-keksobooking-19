@@ -14,6 +14,8 @@
     GUESTS_COUNT: document.querySelector('#capacity'),
     ROOM_TYPE: document.querySelector('#type'),
     ROOM_PRICE: document.querySelector('#price'),
+    TIME_IN: document.querySelector('#timein'),
+    TIME_OUT: document.querySelector('#timeout'),
     FILTER_CONTAINER: document.querySelector('.map__filters-container')
   };
 })();

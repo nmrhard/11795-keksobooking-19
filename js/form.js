@@ -43,12 +43,16 @@
     var price = window.Node.ROOM_PRICE.value;
     var roomType = window.Node.ROOM_TYPE.value;
     if (price < MIN_PRICE_MAP[roomType]) {
-      currentElement.setCustomValidity('Минимальная цена за ' + TYPE_APARTMENT_MAP[roomType] + ' - ' + MIN_PRICE_MAP[roomType] + 'руб.');
+      currentElement.setCustomValidity('Минимальная цена за тип жилья ' + TYPE_APARTMENT_MAP[roomType] + ' - ' + MIN_PRICE_MAP[roomType] + ' руб.');
     } else {
       currentElement.setCustomValidity('');
       secondElement.setCustomValidity('');
     }
   };
+
+  var setTime = function (currentElement, secondElement) {
+    secondElement.value = currentElement.value;
+  }
 
   var onRoomsCountChange = function (evt) {
     checkGuestForRooms(evt.target, window.Node.GUESTS_COUNT);
@@ -67,9 +71,20 @@
     checkMinPriceOfRoom(evt.target, window.Node.ROOM_TYPE);
   };
 
+  var onTimeInChange = function (evt) {
+    setTime(evt.target, window.Node.TIME_OUT);
+  };
+
+  var onTimeOutChange = function (evt) {
+    setTime(evt.target, window.Node.TIME_IN);
+  };
+
   window.Node.ROOMS_COUNT.addEventListener('change', onRoomsCountChange);
   window.Node.GUESTS_COUNT.addEventListener('change', onGuestsCountChange);
 
   window.Node.ROOM_TYPE.addEventListener('change', onRoomTypeChange);
   window.Node.ROOM_PRICE.addEventListener('change', onRoomPriceChange);
+
+  window.Node.TIME_IN.addEventListener('change', onTimeInChange);
+  window.Node.TIME_OUT.addEventListener('change', onTimeOutChange);
 })();
