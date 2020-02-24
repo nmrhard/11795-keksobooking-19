@@ -7,7 +7,7 @@ window.map = (function () {
     closeCard();
   };
 
-  var onEnterKeyDown = function (evt) {
+  var onCardEnterKeyDown = function (evt) {
     if (evt.key === window.util.Key.ENTER) {
       showCard(evt.target);
     }
@@ -43,5 +43,5 @@ window.map = (function () {
   };
 
   window.Node.MAP_PINS_ELEMENT.addEventListener('click', onPinClick);
-  window.Node.MAP_PINS_ELEMENT.addEventListener('keydown', onEnterKeyDown);
+  window.Node.MAP_PINS_ELEMENT.addEventListener('keydown', onCardEnterKeyDown);
 })();
