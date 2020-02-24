@@ -6,7 +6,7 @@ window.pin = (function () {
     HEIGHT: 70
   };
 
-  var renderPin = function (offer) {
+  var renderPin = function (offer, index) {
     var pinElement = window.Node.PIN_TEMPLATE.cloneNode(true);
     var pinX = offer.location.x - Pin.WIDTH / 2;
     var pinY = offer.location.y - Pin.HEIGHT;
@@ -15,6 +15,7 @@ window.pin = (function () {
 
     pinElement.querySelector('img').src = offer.author.avatar;
     pinElement.querySelector('img').alt = offer.offer.title;
+    pinElement.dataset.index = index;
 
     return pinElement;
   };
@@ -22,9 +23,9 @@ window.pin = (function () {
   var renderPins = function (offers) {
     var fragment = document.createDocumentFragment();
 
-    offers.forEach(function (offer) {
+    offers.forEach(function (offer, i) {
       if (offer.hasOwnProperty('offer')) {
-        fragment.appendChild(window.pin.renderPin(offer));
+        fragment.appendChild(window.pin.renderPin(offer, i));
       }
     });
 
