@@ -2,7 +2,10 @@
 
 window.util = (function () {
   var MOUSE_LEFT_BUTTON = 0;
-  var ENTER_KEY = 'Enter';
+  var Key = {
+    ENTER: 'Enter',
+    ESC: 'Escape'
+  };
 
   var getPictureNumber = function (offer) {
     return offer.toString().padStart(2, '0');
@@ -35,9 +38,20 @@ window.util = (function () {
   };
 
   var isEnterEvent = function (evt, action) {
-    if (evt.key === ENTER_KEY) {
+    if (evt.key === Key.ENTER) {
       action();
     }
+  };
+
+  var isEscEvent = function (evt, action) {
+    if (evt.key === Key.ESC) {
+      action();
+    }
+  };
+
+  var pluralize = function (count, words) {
+    var cases = [2, 0, 1, 1, 1, 2];
+    return count + ' ' + words[(count % 100 > 4 && count % 100 < 20) ? 2 : cases[Math.min(count % 10, 5)]];
   };
 
   var onError = function (errorMessage) {
@@ -73,7 +87,10 @@ window.util = (function () {
     getRandomItems: getRandomItems,
     isMouseLeftEvent: isMouseLeftEvent,
     isEnterEvent: isEnterEvent,
+    isEscEvent: isEscEvent,
     onError: onError,
-    setChildrenStatuses: setChildrenStatuses
+    setChildrenStatuses: setChildrenStatuses,
+    pluralize: pluralize,
+    Key: Key
   };
 })();

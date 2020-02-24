@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+window.start = (function () {
   var PinMain = {
     WIDTH: 65,
     HEIGHT: 65,
@@ -10,6 +10,7 @@
     inactive: true,
     active: false
   };
+  var offers = [];
 
   var getAddress = function (status) {
     var pinHeight = status ? PinMain.HEIGHT / 2 : PinMain.HEIGHT_ACTIVE;
@@ -19,8 +20,9 @@
     return mainPinY + ', ' + mainPinX;
   };
 
-  var onSucces = function (offers) {
-    var pins = window.pin.renderPins(offers);
+  var onSucces = function (dataOffers) {
+    window.start.offers = dataOffers;
+    var pins = window.pin.renderPins(dataOffers);
     window.Node.MAP_PINS_ELEMENT.appendChild(pins);
   };
 
@@ -28,7 +30,6 @@
     window.Node.MAP.classList.remove('map--faded');
     window.Node.OFFER_FORM.classList.remove('ad-form--disabled');
     window.backend.load(onSucces, window.util.onError);
-    window.Node.FILTER_CONTAINER.before(window.map.renderCards(window.data(1)));
     window.Node.ADDRESS_INPUT.value = getAddress(FORM_SATUS.active);
 
 
@@ -54,4 +55,8 @@
 
   window.util.setChildrenStatuses(window.Node.OFFER_FORM, FORM_SATUS.inactive);
   window.util.setChildrenStatuses(window.Node.MAP_FORM, FORM_SATUS.inactive);
+
+  return {
+    offers: offers
+  };
 })();
