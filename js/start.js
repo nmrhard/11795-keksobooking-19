@@ -38,6 +38,7 @@ window.start = (function () {
 
     window.Node.PIN_MAIN.removeEventListener('mousedown', onPinMainClick);
     window.Node.PIN_MAIN.removeEventListener('keydown', onPinMainEnterKeyDown);
+    window.Node.PIN_MAIN.addEventListener('mousedown', window.map.onPinMainClick);
   };
 
   var onPinMainClick = function (evt) {
