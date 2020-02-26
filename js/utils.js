@@ -2,6 +2,7 @@
 
 window.util = (function () {
   var MOUSE_LEFT_BUTTON = 0;
+  var CASES = [2, 0, 1, 1, 1, 2];
   var Key = {
     ENTER: 'Enter',
     ESC: 'Escape'
@@ -50,8 +51,7 @@ window.util = (function () {
   };
 
   var pluralize = function (count, words) {
-    var cases = [2, 0, 1, 1, 1, 2];
-    return count + ' ' + words[(count % 100 > 4 && count % 100 < 20) ? 2 : cases[Math.min(count % 10, 5)]];
+    return count + ' ' + words[(count % 100 > 4 && count % 100 < 20) ? 2 : CASES[Math.min(count % 10, 5)]];
   };
 
   var onError = function (errorMessage) {

@@ -1,19 +1,11 @@
 'use strict';
 
 window.map = (function () {
-  var PinMain = {
-    WIDTH: 65,
-    HEIGHT: 84
-  };
   var mapBorder = {
-    X: {
-      MIN: 0,
-      MAX: 1200
-    },
-    Y: {
-      MIN: 130,
-      MAX: 630
-    }
+    X_MIN: 0,
+    X_MAX: 1200,
+    Y_MIN: 130,
+    Y_MAX: 630
   };
   var MAP_PIN_CLASS = 'map__pin';
 
@@ -89,13 +81,13 @@ window.map = (function () {
       var pinMainY = window.Node.PIN_MAIN.offsetTop - shift.y;
       var pinMainX = window.Node.PIN_MAIN.offsetLeft - shift.x;
 
-      var addressY = checkBorder(mapBorder.Y.MIN - PinMain.HEIGHT, mapBorder.Y.MAX - PinMain.HEIGHT, pinMainY);
-      var addressX = checkBorder(mapBorder.X.MIN - PinMain.WIDTH / 2, mapBorder.X.MAX - PinMain.WIDTH / 2, pinMainX);
+      var addressY = checkBorder(mapBorder.Y_MIN - window.start.PinMain.HEIGHT_ACTIVE, mapBorder.Y_MAX - window.start.PinMain.HEIGHT_ACTIVE, pinMainY);
+      var addressX = checkBorder(mapBorder.X_MIN - window.start.PinMain.WIDTH / 2, mapBorder.X_MAX - window.start.PinMain.WIDTH / 2, pinMainX);
 
       window.Node.PIN_MAIN.style.top = addressY + 'px';
       window.Node.PIN_MAIN.style.left = addressX + 'px';
 
-      window.Node.ADDRESS_INPUT.value = Math.floor(addressY + PinMain.HEIGHT) + ', ' + Math.floor(addressX + PinMain.WIDTH / 2);
+      window.Node.ADDRESS_INPUT.value = Math.floor(addressY + window.start.PinMain.HEIGHT_ACTIVE) + ', ' + Math.floor(addressX + window.start.PinMain.WIDTH / 2);
     };
 
     var onPinMainMouseUp = function (upEvt) {
