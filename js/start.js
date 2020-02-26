@@ -6,7 +6,7 @@ window.start = (function () {
     HEIGHT: 65,
     HEIGHT_ACTIVE: 84
   };
-  var FORM_SATUS = {
+  var FORM_STATUS = {
     inactive: true,
     active: false
   };
@@ -20,7 +20,7 @@ window.start = (function () {
     return mainPinY + ', ' + mainPinX;
   };
 
-  var onSucces = function (dataOffers) {
+  var onDataLoaded = function (dataOffers) {
     window.start.offers = dataOffers;
     var pins = window.pin.renderPins(dataOffers);
     window.Node.MAP_PINS_ELEMENT.appendChild(pins);
@@ -29,15 +29,16 @@ window.start = (function () {
   var activateElements = function () {
     window.Node.MAP.classList.remove('map--faded');
     window.Node.OFFER_FORM.classList.remove('ad-form--disabled');
-    window.backend.load(onSucces, window.util.onError);
-    window.Node.ADDRESS_INPUT.value = getAddress(FORM_SATUS.active);
+    window.backend.load(onDataLoaded, window.util.onError);
+    window.Node.ADDRESS_INPUT.value = getAddress(FORM_STATUS.active);
 
 
-    window.util.setChildrenStatuses(window.Node.OFFER_FORM, FORM_SATUS.active);
-    window.util.setChildrenStatuses(window.Node.MAP_FORM, FORM_SATUS.active);
+    window.util.setChildrenStatuses(window.Node.OFFER_FORM, FORM_STATUS.active);
+    window.util.setChildrenStatuses(window.Node.MAP_FORM, FORM_STATUS.active);
 
     window.Node.PIN_MAIN.removeEventListener('mousedown', onPinMainClick);
     window.Node.PIN_MAIN.removeEventListener('keydown', onPinMainEnterKeyDown);
+    window.Node.PIN_MAIN.addEventListener('mousedown', window.map.onPinMainClick);
   };
 
   var onPinMainClick = function (evt) {
@@ -51,12 +52,13 @@ window.start = (function () {
   window.Node.PIN_MAIN.addEventListener('mousedown', onPinMainClick);
   window.Node.PIN_MAIN.addEventListener('keydown', onPinMainEnterKeyDown);
 
-  window.Node.ADDRESS_INPUT.value = getAddress(FORM_SATUS.inactive);
+  window.Node.ADDRESS_INPUT.value = getAddress(FORM_STATUS.inactive);
 
-  window.util.setChildrenStatuses(window.Node.OFFER_FORM, FORM_SATUS.inactive);
-  window.util.setChildrenStatuses(window.Node.MAP_FORM, FORM_SATUS.inactive);
+  window.util.setChildrenStatuses(window.Node.OFFER_FORM, FORM_STATUS.inactive);
+  window.util.setChildrenStatuses(window.Node.MAP_FORM, FORM_STATUS.inactive);
 
   return {
-    offers: offers
+    offers: offers,
+    PinMain: PinMain
   };
 })();

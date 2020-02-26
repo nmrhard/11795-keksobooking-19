@@ -27,7 +27,8 @@ window.card = (function () {
     var fragment = document.createDocumentFragment();
     features.forEach(function (featuresItem) {
       var newItemElement = document.createElement('li');
-      newItemElement.className = featuresClassName + ' ' + featuresClassName + '--' + featuresItem;
+      newItemElement.classList.add(featuresClassName);
+      newItemElement.classList.add(featuresClassName + '--' + featuresItem);
       newItemElement.textContent = FEATURES_MAP[featuresItem];
       fragment.appendChild(newItemElement);
     });
