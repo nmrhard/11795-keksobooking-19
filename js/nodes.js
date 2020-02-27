@@ -16,6 +16,9 @@
     ROOM_PRICE: document.querySelector('#price'),
     TIME_IN: document.querySelector('#timein'),
     TIME_OUT: document.querySelector('#timeout'),
-    FILTER_CONTAINER: document.querySelector('.map__filters-container')
+    FILTER_CONTAINER: document.querySelector('.map__filters-container'),
+    SUCCESS_TEMPLATE: document.querySelector('#success'),
+    ERROR_TEMPLATE: document.querySelector('#error'),
+    RESET_FORM: document.querySelector('.ad-form__reset')
   };
 })();

@@ -32,8 +32,17 @@ window.pin = (function () {
     return fragment;
   };
 
+  var removePins = function () {
+    var pins =  document.querySelectorAll('.map__pin');
+    pins.forEach( function(pin) {
+      if (!pin.classList.contains('map__pin--main'))
+        pin.remove();
+    });
+  };
+
   return {
     renderPin: renderPin,
-    renderPins: renderPins
+    renderPins: renderPins,
+    removePins: removePins
   };
 })();

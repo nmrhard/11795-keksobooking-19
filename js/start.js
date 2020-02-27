@@ -26,19 +26,32 @@ window.start = (function () {
     window.Node.MAP_PINS_ELEMENT.appendChild(pins);
   };
 
+  var changeElementsStatus = function (status) {
+    window.Node.MAP.classList.toggle('map--faded');
+    window.Node.OFFER_FORM.classList.toggle('ad-form--disabled');
+    window.Node.ADDRESS_INPUT.value = getAddress(status);
+
+    window.util.setChildrenStatuses(window.Node.OFFER_FORM, status);
+    window.util.setChildrenStatuses(window.Node.MAP_FORM, status);
+  };
+
   var activateElements = function () {
-    window.Node.MAP.classList.remove('map--faded');
-    window.Node.OFFER_FORM.classList.remove('ad-form--disabled');
+    changeElementsStatus(FORM_STATUS.active);
     window.backend.load(onDataLoaded, window.util.onError);
-    window.Node.ADDRESS_INPUT.value = getAddress(FORM_STATUS.active);
-
-
-    window.util.setChildrenStatuses(window.Node.OFFER_FORM, FORM_STATUS.active);
-    window.util.setChildrenStatuses(window.Node.MAP_FORM, FORM_STATUS.active);
 
     window.Node.PIN_MAIN.removeEventListener('mousedown', onPinMainClick);
     window.Node.PIN_MAIN.removeEventListener('keydown', onPinMainEnterKeyDown);
     window.Node.PIN_MAIN.addEventListener('mousedown', window.map.onPinMainClick);
+  };
+
+  var inactiveEelemnts = function () {
+    window.pin.removePins();
+    window.Node.OFFER_FORM.reset();
+
+    window.Node.PIN_MAIN.style = 'left: 570px; top: 375px;';
+    changeElementsStatus(FORM_STATUS.inactive);
+    window.Node.PIN_MAIN.addEventListener('mousedown', onPinMainClick);
+    window.Node.PIN_MAIN.addEventListener('keydown', onPinMainEnterKeyDown);
   };
 
   var onPinMainClick = function (evt) {
@@ -49,16 +62,11 @@ window.start = (function () {
     window.util.isEnterEvent(evt, activateElements);
   };
 
-  window.Node.PIN_MAIN.addEventListener('mousedown', onPinMainClick);
-  window.Node.PIN_MAIN.addEventListener('keydown', onPinMainEnterKeyDown);
-
-  window.Node.ADDRESS_INPUT.value = getAddress(FORM_STATUS.inactive);
-
-  window.util.setChildrenStatuses(window.Node.OFFER_FORM, FORM_STATUS.inactive);
-  window.util.setChildrenStatuses(window.Node.MAP_FORM, FORM_STATUS.inactive);
+  inactiveEelemnts();
 
   return {
     offers: offers,
-    PinMain: PinMain
+    PinMain: PinMain,
+    inactiveEelemnts: inactiveEelemnts
   };
 })();
