@@ -33,10 +33,11 @@ window.pin = (function () {
   };
 
   var removePins = function () {
-    var pins =  document.querySelectorAll('.map__pin');
-    pins.forEach( function(pin) {
-      if (!pin.classList.contains('map__pin--main'))
+    var pins = document.querySelectorAll('.map__pin');
+    pins.forEach(function (pin) {
+      if (!pin.classList.contains('map__pin--main')) {
         pin.remove();
+      }
     });
   };
 
