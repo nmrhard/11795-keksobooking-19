@@ -1,6 +1,7 @@
 'use strict';
 
 window.pin = (function () {
+  var MAX_PINS = 5;
   var Pin = {
     WIDTH: 50,
     HEIGHT: 70
@@ -23,7 +24,7 @@ window.pin = (function () {
   var renderPins = function (offers) {
     var fragment = document.createDocumentFragment();
 
-    offers.forEach(function (offer, i) {
+    offers.slice(0, MAX_PINS).forEach(function (offer, i) {
       if (offer.hasOwnProperty('offer')) {
         fragment.appendChild(window.pin.renderPin(offer, i));
       }
