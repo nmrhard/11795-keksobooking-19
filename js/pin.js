@@ -1,6 +1,7 @@
 'use strict';
 
 window.pin = (function () {
+  var MAX_PINS = 5;
   var Pin = {
     WIDTH: 50,
     HEIGHT: 70
@@ -23,7 +24,7 @@ window.pin = (function () {
   var renderPins = function (offers) {
     var fragment = document.createDocumentFragment();
 
-    offers.forEach(function (offer, i) {
+    offers.slice(0, MAX_PINS).forEach(function (offer, i) {
       if (offer.hasOwnProperty('offer')) {
         fragment.appendChild(window.pin.renderPin(offer, i));
       }
@@ -40,6 +41,21 @@ window.pin = (function () {
       }
     });
   };
+
+  var onPinEnterKeyDown = function (evt) {
+    if (evt.key === window.util.Key.ENTER) {
+      window.map.showCard(evt.target, window.start.offers);
+    }
+  };
+
+  var onPinClick = function (evt) {
+    if (evt.button === window.util.MOUSE_LEFT_BUTTON) {
+      window.map.showCard(evt.target, window.start.offers);
+    }
+  };
+
+  window.Node.MAP_PINS_ELEMENT.addEventListener('click', onPinClick);
+  window.Node.MAP_PINS_ELEMENT.addEventListener('keydown', onPinEnterKeyDown);
 
   return {
     renderPin: renderPin,

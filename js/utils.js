@@ -91,6 +91,7 @@ window.util = (function () {
     onError: onError,
     setChildrenStatuses: setChildrenStatuses,
     pluralize: pluralize,
+    MOUSE_LEFT_BUTTON: MOUSE_LEFT_BUTTON,
     Key: Key
   };
 })();
