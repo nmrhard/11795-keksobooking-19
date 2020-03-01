@@ -21,7 +21,8 @@ window.start = (function () {
   };
 
   var onDataLoaded = function (dataOffers) {
-    window.start.offers = dataOffers;
+    window.start.offers = dataOffers.slice();
+    window.filter.filterOffers = window.start.offers.slice();
     var pins = window.pin.renderPins(dataOffers);
     window.Node.MAP_PINS_ELEMENT.appendChild(pins);
   };

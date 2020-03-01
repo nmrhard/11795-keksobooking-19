@@ -42,6 +42,21 @@ window.pin = (function () {
     });
   };
 
+  var onPinEnterKeyDown = function (evt) {
+    if (evt.key === window.util.Key.ENTER) {
+      window.map.showCard(evt.target, window.start.offers);
+    }
+  };
+
+  var onPinClick = function (evt) {
+    if (evt.button === window.util.MOUSE_LEFT_BUTTON) {
+      window.map.showCard(evt.target, window.start.offers);
+    }
+  };
+
+  window.Node.MAP_PINS_ELEMENT.addEventListener('click', onPinClick);
+  window.Node.MAP_PINS_ELEMENT.addEventListener('keydown', onPinEnterKeyDown);
+
   return {
     renderPin: renderPin,
     renderPins: renderPins,

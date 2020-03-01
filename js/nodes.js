@@ -19,6 +19,7 @@
     FILTER_CONTAINER: document.querySelector('.map__filters-container'),
     SUCCESS_TEMPLATE: document.querySelector('#success'),
     ERROR_TEMPLATE: document.querySelector('#error'),
-    RESET_FORM: document.querySelector('.ad-form__reset')
+    RESET_FORM: document.querySelector('.ad-form__reset'),
+    HOUSE_TYPE_FILTER: document.querySelector('#housing-type')
   };
 })();
