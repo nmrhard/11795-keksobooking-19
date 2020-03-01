@@ -45,7 +45,7 @@ window.start = (function () {
     window.Node.PIN_MAIN.addEventListener('mousedown', window.map.onPinMainClick);
   };
 
-  var inactiveEelemnts = function () {
+  var disableEelemnts = function () {
     window.pin.removePins();
     window.Node.OFFER_FORM.reset();
 
@@ -63,11 +63,11 @@ window.start = (function () {
     window.util.isEnterEvent(evt, activateElements);
   };
 
-  inactiveEelemnts();
+  disableEelemnts();
 
   return {
     offers: offers,
     PinMain: PinMain,
-    inactiveEelemnts: inactiveEelemnts
+    disableEelemnts: disableEelemnts
   };
 })();

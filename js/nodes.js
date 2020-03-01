@@ -20,6 +20,9 @@
     SUCCESS_TEMPLATE: document.querySelector('#success'),
     ERROR_TEMPLATE: document.querySelector('#error'),
     RESET_FORM: document.querySelector('.ad-form__reset'),
-    HOUSE_TYPE_FILTER: document.querySelector('#housing-type')
+    HOUSE_TYPE_FILTER: document.querySelector('#housing-type'),
+    SUCCESS_MODAL: document.querySelector('#success').content.querySelector('.success'),
+    ERROR_MODAL: document.querySelector('#error').content.querySelector('.error'),
+    MAIN: document.body.querySelector('main')
   };
 })();
