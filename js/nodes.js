@@ -21,6 +21,10 @@
     ERROR_TEMPLATE: document.querySelector('#error'),
     RESET_FORM: document.querySelector('.ad-form__reset'),
     HOUSE_TYPE_FILTER: document.querySelector('#housing-type'),
+    HOUSE_PRICE_FILTER: document.querySelector('#housing-price'),
+    HOUSE_ROOMS_FILTER: document.querySelector('#housing-rooms'),
+    HOUSE_GUESTS_FILTER: document.querySelector('#housing-guests'),
+    HOUSE_FEATURES_FILTER: document.querySelector('#housing-features'),
     SUCCESS_MODAL: document.querySelector('#success').content.querySelector('.success'),
     ERROR_MODAL: document.querySelector('#error').content.querySelector('.error'),
     MAIN: document.body.querySelector('main')
