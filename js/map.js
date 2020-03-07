@@ -29,9 +29,9 @@ window.map = (function () {
     closeCard();
 
     var pin = element.dataset.index ? element : element.parentElement;
-    var isPin = pin.className === MAP_PIN_CLASS ? true : false;
+    var isPin = pin.className === MAP_PIN_CLASS
     if (isPin) {
-      var offer = window.filter.getOfferByIndex(pin.dataset.index);
+      var offer = window.data.getOfferByIndex(pin.dataset.index);
       window.Node.FILTER_CONTAINER.before(window.card.renderCard(offer));
       document.querySelector('.popup__close').addEventListener('click', onCardCloseClick);
       document.addEventListener('keydown', onCardEscapeKeyDown);
