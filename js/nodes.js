@@ -27,6 +27,10 @@
     HOUSE_FEATURES_FILTER: document.querySelector('#housing-features'),
     SUCCESS_MODAL: document.querySelector('#success').content.querySelector('.success'),
     ERROR_MODAL: document.querySelector('#error').content.querySelector('.error'),
-    MAIN: document.body.querySelector('main')
+    MAIN: document.body.querySelector('main'),
+    AVATAR_CHOOSER: document.body.querySelector('#avatar'),
+    AVATAR_PREVIEW: document.body.querySelector('.ad-form-header__preview img'),
+    ROOM_PHOTO_CHOOSER: document.body.querySelector('#images'),
+    ROOM_PHOTO_PREVIEW: document.body.querySelector('.ad-form__photo'),
   };
 })();
