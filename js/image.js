@@ -9,15 +9,22 @@
   var roomPhotoChooser = window.Node.ROOM_PHOTO_CHOOSER;
   var roomPhotoPreview = window.Node.ROOM_PHOTO_PREVIEW;
 
-  var onAvatatChange = function () {
-    var file = avatarChooser.files[0];
+  var checkFile = function (file) {
+
     var fileName = file.name.toLowerCase();
 
     var matches = FILE_TYPES.some(function (fileType) {
       return fileName.endsWith(fileType);
     });
 
-    if (matches) {
+    return matches;
+  };
+
+  var onAvatatChange = function () {
+    var file = avatarChooser.files[0];
+    var isImage = checkFile(file);
+
+    if (isImage) {
       var reader = new FileReader();
 
       reader.addEventListener('load', function () {
@@ -30,13 +37,9 @@
 
   var onRoomPhotoChange = function () {
     var file = roomPhotoChooser.files[0];
-    var fileName = file.name.toLowerCase();
+    var isImage = checkFile(file);
 
-    var matches = FILE_TYPES.some(function (fileType) {
-      return fileName.endsWith(fileType);
-    });
-
-    if (matches) {
+    if (isImage) {
       var reader = new FileReader();
 
       reader.addEventListener('load', function () {
