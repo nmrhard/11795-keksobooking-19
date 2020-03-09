@@ -1,10 +1,11 @@
 'use strict';
 
-(function () {
+window.image = (function () {
   var FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
   var avatarChooser = window.Node.AVATAR_CHOOSER;
   var avatarPreview = window.Node.AVATAR_PREVIEW;
+  var defaultAvatar = window.Node.AVATAR_PREVIEW.src;
 
   var roomPhotoChooser = window.Node.ROOM_PHOTO_CHOOSER;
   var roomPhotoPreview = window.Node.ROOM_PHOTO_PREVIEW;
@@ -56,6 +57,15 @@
     }
   };
 
+  var removeImages = function () {
+    avatarPreview.src = defaultAvatar;
+    roomPhotoPreview.innerHTML = '';
+  };
+
   avatarChooser.addEventListener('change', onAvatatChange);
   roomPhotoChooser.addEventListener('change', onRoomPhotoChange);
+
+  return {
+    removeImages: removeImages
+  }
 })();
