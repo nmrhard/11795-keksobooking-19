@@ -51,26 +51,26 @@
   };
 
   var showMessageSuccess = function () {
-    var successElement = window.Node.SUCCESS_TEMPLATE.content.querySelector('.success').cloneNode(true);
+    var successElement = window.Node.SUCCESS_MODAL.cloneNode(true);
     successElement.id = 'modal';
-    document.body.querySelector('main').appendChild(successElement);
+    window.Node.MAIN.appendChild(successElement);
 
     document.addEventListener('keydown', onMessageCloseKeyDown);
     document.addEventListener('click', onMessageCloseClick);
   };
 
   var showMessageError = function () {
-    var errorElement = window.Node.ERROR_TEMPLATE.content.querySelector('.error').cloneNode(true);
+    var errorElement = window.Node.ERROR_MODAL.cloneNode(true);
     errorElement.id = 'modal';
-    document.body.querySelector('main').appendChild(errorElement);
+    window.Node.MAIN.appendChild(errorElement);
 
     errorElement.querySelector('.error__button').addEventListener('click', onMessageErrorClick);
     document.addEventListener('keydown', onMessageCloseKeyDown);
     document.addEventListener('click', onMessageCloseClick);
   };
 
-  var successSaveData = function () {
-    window.start.inactiveEelemnts();
+  var onSuccessSave = function () {
+    window.start.disableEelemnts();
     showMessageSuccess();
   };
 
@@ -93,7 +93,7 @@
   };
 
   var onFormSubmit = function (evt) {
-    window.backend.save(new FormData(window.Node.OFFER_FORM), successSaveData, showMessageError);
+    window.backend.save(new FormData(window.Node.OFFER_FORM), onSuccessSave, showMessageError);
     evt.preventDefault();
   };
 
@@ -140,16 +140,18 @@
     window.util.isEnterEvent(evt, clearForm);
   };
 
-  window.Node.ROOMS_COUNT.addEventListener('change', onRoomsCountChange);
-  window.Node.GUESTS_COUNT.addEventListener('change', onGuestsCountChange);
+  (function () {
+    window.Node.ROOMS_COUNT.addEventListener('change', onRoomsCountChange);
+    window.Node.GUESTS_COUNT.addEventListener('change', onGuestsCountChange);
 
-  window.Node.ROOM_TYPE.addEventListener('change', onRoomTypeChange);
-  window.Node.ROOM_PRICE.addEventListener('change', onRoomPriceChange);
+    window.Node.ROOM_TYPE.addEventListener('change', onRoomTypeChange);
+    window.Node.ROOM_PRICE.addEventListener('change', onRoomPriceChange);
 
-  window.Node.TIME_IN.addEventListener('change', onTimeInChange);
-  window.Node.TIME_OUT.addEventListener('change', onTimeOutChange);
+    window.Node.TIME_IN.addEventListener('change', onTimeInChange);
+    window.Node.TIME_OUT.addEventListener('change', onTimeOutChange);
 
-  window.Node.OFFER_FORM.addEventListener('submit', onFormSubmit);
-  window.Node.RESET_FORM.addEventListener('click', onResetButtonClick);
-  window.Node.RESET_FORM.addEventListener('keydown', onResetButtonEnter);
+    window.Node.OFFER_FORM.addEventListener('submit', onFormSubmit);
+    window.Node.RESET_FORM.addEventListener('click', onResetButtonClick);
+    window.Node.RESET_FORM.addEventListener('keydown', onResetButtonEnter);
+  })();
 })();

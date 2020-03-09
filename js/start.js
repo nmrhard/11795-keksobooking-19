@@ -20,13 +20,6 @@ window.start = (function () {
     return mainPinY + ', ' + mainPinX;
   };
 
-  var onDataLoaded = function (dataOffers) {
-    window.start.offers = dataOffers.slice();
-    window.filter.filterOffers = window.start.offers.slice();
-    var pins = window.pin.renderPins(dataOffers);
-    window.Node.MAP_PINS_ELEMENT.appendChild(pins);
-  };
-
   var changeElementsStatus = function (status) {
     window.Node.MAP.classList.toggle('map--faded');
     window.Node.OFFER_FORM.classList.toggle('ad-form--disabled');
@@ -38,14 +31,15 @@ window.start = (function () {
 
   var activateElements = function () {
     changeElementsStatus(FORM_STATUS.active);
-    window.backend.load(onDataLoaded, window.util.onError);
+    var pins = window.pin.renderPins(window.data.getData());
+    window.Node.MAP_PINS_ELEMENT.appendChild(pins);
 
     window.Node.PIN_MAIN.removeEventListener('mousedown', onPinMainClick);
     window.Node.PIN_MAIN.removeEventListener('keydown', onPinMainEnterKeyDown);
     window.Node.PIN_MAIN.addEventListener('mousedown', window.map.onPinMainClick);
   };
 
-  var inactiveEelemnts = function () {
+  var disableEelemnts = function () {
     window.pin.removePins();
     window.Node.OFFER_FORM.reset();
 
@@ -63,11 +57,11 @@ window.start = (function () {
     window.util.isEnterEvent(evt, activateElements);
   };
 
-  inactiveEelemnts();
+  disableEelemnts();
 
   return {
     offers: offers,
     PinMain: PinMain,
-    inactiveEelemnts: inactiveEelemnts
+    disableEelemnts: disableEelemnts
   };
 })();
