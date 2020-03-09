@@ -39,7 +39,7 @@ window.filter = (function () {
     }
 
     window.data.filterData();
-    window.pin.updatePins();
+    window.debounce(window.pin.updatePins);
   };
 
   var setFilter = function (offers) {
