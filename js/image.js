@@ -11,7 +11,6 @@ window.image = (function () {
   var roomPhotoPreview = window.Node.ROOM_PHOTO_PREVIEW;
 
   var checkFile = function (file) {
-
     var fileName = file.name.toLowerCase();
 
     var matches = FILE_TYPES.some(function (fileType) {
@@ -67,5 +66,5 @@ window.image = (function () {
 
   return {
     removeImages: removeImages
-  }
+  };
 })();
