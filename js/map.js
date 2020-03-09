@@ -29,7 +29,7 @@ window.map = (function () {
     closeCard();
 
     var pin = element.dataset.index ? element : element.parentElement;
-    var isPin = pin.className === MAP_PIN_CLASS
+    var isPin = pin.className === MAP_PIN_CLASS;
     if (isPin) {
       var offer = window.data.getOfferByIndex(pin.dataset.index);
       window.Node.FILTER_CONTAINER.before(window.card.renderCard(offer));
