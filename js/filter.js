@@ -29,28 +29,36 @@ window.filter = (function () {
     } else if (evt.target.id === window.Node.HOUSE_GUESTS_FILTER.id) {
       apartmentGuests = evt.target.value;
     } else if (evt.target.parentNode.id === window.Node.HOUSE_FEATURES_FILTER.id) {
-      apartmentFeatures = Array.from(window.Node.HOUSE_FEATURES_FILTER.children)
-      .filter(function (feature) {
-        return feature.checked === true;
-      })
-      .map(function (element) {
-        return element.value;
-      });
+      apartmentFeatures = getFeatures();
     }
 
     window.data.filterData();
     window.debounce(window.pin.updatePins);
   };
 
-  var setFilter = function (offers) {
-    filterOffers = offers
-      .filter(filterByApartmentType)
-      .filter(filterByApartmentPrice)
-      .filter(filterByApartmentRooms)
-      .filter(filterByApartmentGuests)
-      .filter(filterByApartmentFeatures);
+  var getFeatures = function () {
+    var features = Array.from(window.Node.HOUSE_FEATURES_FILTER.children)
+    .filter(function (feature) {
+      return feature.checked;
+    })
+    .map(function (element) {
+      return element.value;
+    });
 
+    return features;
+  };
+
+  var setFilter = function (offers) {
+    filterOffers = offers.filter(filtration);
     return filterOffers;
+  };
+
+  var filtration = function (item) {
+    return filterByApartmentType(item)
+    && filterByApartmentPrice(item)
+    && filterByApartmentRooms(item)
+    && filterByApartmentGuests(item)
+    && filterByApartmentFeatures(item);
   };
 
   var filterByApartmentType = function (item) {
