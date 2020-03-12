@@ -12,16 +12,16 @@ window.data = (function () {
 
   var filterData = function () {
     var filteredOffers = window.filter.setFilter(initialOffers);
-    offers = filteredOffers
+    offers = filteredOffers;
   };
 
   var getData = function () {
-    return offers.slice(0, MAX_OFFERS);;
+    return offers.slice(0, MAX_OFFERS);
   };
 
   var initialData = function () {
     offers = initialOffers;
-  }
+  };
 
   var getOfferByIndex = function (index) {
     return offers[index];

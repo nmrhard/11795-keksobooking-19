@@ -103,7 +103,7 @@
 
   var clearForm = function () {
     window.start.disableEelemnts();
-    address = window.Node.ADDRESS_INPUT.value;
+    var address = window.Node.ADDRESS_INPUT.value;
     window.Node.ADDRESS_INPUT.setAttribute('value', address);
   };
 
