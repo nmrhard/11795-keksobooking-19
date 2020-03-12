@@ -7,17 +7,21 @@ window.data = (function () {
 
   var onDataLoaded = function (dataOffers) {
     initialOffers = dataOffers.slice();
-    offers = initialOffers.slice(0, MAX_OFFERS);
+    offers = initialOffers;
   };
 
   var filterData = function () {
     var filteredOffers = window.filter.setFilter(initialOffers);
-    offers = filteredOffers.slice(0, MAX_OFFERS);
+    offers = filteredOffers
   };
 
   var getData = function () {
-    return offers;
+    return offers.slice(0, MAX_OFFERS);;
   };
+
+  var initialData = function () {
+    offers = initialOffers;
+  }
 
   var getOfferByIndex = function (index) {
     return offers[index];
@@ -28,6 +32,7 @@ window.data = (function () {
   return {
     getData: getData,
     filterData: filterData,
-    getOfferByIndex: getOfferByIndex
+    getOfferByIndex: getOfferByIndex,
+    initialData: initialData
   };
 })();

@@ -19,7 +19,11 @@ window.map = (function () {
 
   var closeCard = function () {
     var card = document.querySelector('.map__card');
-    if (card !== null) {
+    var activePin = document.querySelector('.map__pin--active');
+    if (activePin) {
+      activePin.classList.remove('map__pin--active');
+    }
+    if (card) {
       card.remove();
       document.removeEventListener('keydown', onCardEscapeKeyDown);
     }
@@ -31,6 +35,7 @@ window.map = (function () {
     var pin = element.dataset.index ? element : element.parentElement;
     var isPin = pin.className === MAP_PIN_CLASS;
     if (isPin) {
+      pin.classList.toggle('map__pin--active');
       var offer = window.data.getOfferByIndex(pin.dataset.index);
       window.Node.FILTER_CONTAINER.before(window.card.renderCard(offer));
       document.querySelector('.popup__close').addEventListener('click', onCardCloseClick);

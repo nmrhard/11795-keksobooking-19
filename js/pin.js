@@ -52,13 +52,13 @@ window.pin = (function () {
 
   var onPinEnterKeyDown = function (evt) {
     if (evt.key === window.util.Key.ENTER) {
-      window.map.showCard(evt.target, window.start.offers);
+      window.map.showCard(evt.target);
     }
   };
 
   var onPinClick = function (evt) {
     if (evt.button === window.util.MOUSE_LEFT_BUTTON) {
-      window.map.showCard(evt.target, window.start.offers);
+      window.map.showCard(evt.target);
     }
   };
 

@@ -41,8 +41,11 @@ window.start = (function () {
 
   var disableEelemnts = function () {
     window.pin.removePins();
+    window.map.closeCard();
     window.Node.OFFER_FORM.reset();
+    window.Node.MAP_FORM.reset();
     window.image.removeImages();
+    window.data.initialData();
 
     window.Node.PIN_MAIN.style = 'left: 570px; top: 375px;';
     changeElementsStatus(FORM_STATUS.inactive);

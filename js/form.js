@@ -102,8 +102,8 @@
   };
 
   var clearForm = function () {
-    var address = window.Node.ADDRESS_INPUT.value;
-    window.Node.OFFER_FORM.reset();
+    window.start.disableEelemnts();
+    address = window.Node.ADDRESS_INPUT.value;
     window.Node.ADDRESS_INPUT.setAttribute('value', address);
   };
 
