@@ -1,6 +1,15 @@
 'use strict';
 
 (function () {
+  var ROOMS_COUNT = document.querySelector('#room_number');
+  var GUESTS_COUNT = document.querySelector('#capacity');
+  var ROOM_TYPE = document.querySelector('#type');
+  var ROOM_PRICE = document.querySelector('#price');
+  var TIME_IN = document.querySelector('#timein');
+  var TIME_OUT = document.querySelector('#timeout');
+  var RESET_FORM = document.querySelector('.ad-form__reset');
+  var SUCCESS_MODAL = document.querySelector('#success').content.querySelector('.success');
+  var ERROR_MODAL = document.querySelector('#error').content.querySelector('.error');
   var MIN_PRICE_MAP = {
     'bungalo': 0,
     'flat': 1000,
@@ -16,8 +25,8 @@
   };
 
   var checkGuestForRooms = function (currentElement, secondElement) {
-    var guests = parseInt(window.Node.GUESTS_COUNT.value, 10);
-    var rooms = parseInt(window.Node.ROOMS_COUNT.value, 10);
+    var guests = parseInt(GUESTS_COUNT.value, 10);
+    var rooms = parseInt(ROOMS_COUNT.value, 10);
 
     if (rooms === 100 && guests !== 0) {
       currentElement.setCustomValidity(rooms + ' комнат не для гостей');
@@ -35,13 +44,13 @@
 
   var setMinPriceOfRoom = function (currentElement) {
     var minPrice = MIN_PRICE_MAP[currentElement.value];
-    window.Node.ROOM_PRICE.min = minPrice;
-    window.Node.ROOM_PRICE.placeholder = minPrice;
+    ROOM_PRICE.min = minPrice;
+    ROOM_PRICE.placeholder = minPrice;
   };
 
   var checkMinPriceOfRoom = function (currentElement, secondElement) {
-    var price = window.Node.ROOM_PRICE.value;
-    var roomType = window.Node.ROOM_TYPE.value;
+    var price = ROOM_PRICE.value;
+    var roomType = ROOM_TYPE.value;
     if (price < MIN_PRICE_MAP[roomType]) {
       currentElement.setCustomValidity('Минимальная цена за тип жилья ' + TYPE_APARTMENT_MAP[roomType] + ' - ' + MIN_PRICE_MAP[roomType] + ' руб.');
     } else {
@@ -51,7 +60,7 @@
   };
 
   var showMessageSuccess = function () {
-    var successElement = window.Node.SUCCESS_MODAL.cloneNode(true);
+    var successElement = SUCCESS_MODAL.cloneNode(true);
     successElement.id = 'modal';
     window.Node.MAIN.appendChild(successElement);
 
@@ -60,7 +69,7 @@
   };
 
   var showMessageError = function () {
-    var errorElement = window.Node.ERROR_MODAL.cloneNode(true);
+    var errorElement = ERROR_MODAL.cloneNode(true);
     errorElement.id = 'modal';
     window.Node.MAIN.appendChild(errorElement);
 
@@ -104,32 +113,32 @@
   var clearForm = function () {
     window.start.disableEelemnts();
     var address = window.Node.ADDRESS_INPUT.value;
-    window.Node.ADDRESS_INPUT.setAttribute('value', address);
+    window.Node.ADDRESS_INPUT.value = address;
   };
 
   var onRoomsCountChange = function (evt) {
-    checkGuestForRooms(evt.target, window.Node.GUESTS_COUNT);
+    checkGuestForRooms(evt.target, GUESTS_COUNT);
   };
 
   var onGuestsCountChange = function (evt) {
-    checkGuestForRooms(evt.target, window.Node.ROOMS_COUNT);
+    checkGuestForRooms(evt.target, ROOMS_COUNT);
   };
 
   var onRoomTypeChange = function (evt) {
     setMinPriceOfRoom(evt.target);
-    checkMinPriceOfRoom(evt.target, window.Node.ROOM_PRICE);
+    checkMinPriceOfRoom(evt.target, ROOM_PRICE);
   };
 
   var onRoomPriceChange = function (evt) {
-    checkMinPriceOfRoom(evt.target, window.Node.ROOM_TYPE);
+    checkMinPriceOfRoom(evt.target, ROOM_TYPE);
   };
 
   var onTimeInChange = function (evt) {
-    setTime(evt.target, window.Node.TIME_OUT);
+    setTime(evt.target, TIME_OUT);
   };
 
   var onTimeOutChange = function (evt) {
-    setTime(evt.target, window.Node.TIME_IN);
+    setTime(evt.target, TIME_IN);
   };
 
   var onResetButtonClick = function (evt) {
@@ -140,18 +149,16 @@
     window.util.isEnterEvent(evt, clearForm);
   };
 
-  (function () {
-    window.Node.ROOMS_COUNT.addEventListener('change', onRoomsCountChange);
-    window.Node.GUESTS_COUNT.addEventListener('change', onGuestsCountChange);
+  ROOMS_COUNT.addEventListener('change', onRoomsCountChange);
+  GUESTS_COUNT.addEventListener('change', onGuestsCountChange);
 
-    window.Node.ROOM_TYPE.addEventListener('change', onRoomTypeChange);
-    window.Node.ROOM_PRICE.addEventListener('change', onRoomPriceChange);
+  ROOM_TYPE.addEventListener('change', onRoomTypeChange);
+  ROOM_PRICE.addEventListener('change', onRoomPriceChange);
 
-    window.Node.TIME_IN.addEventListener('change', onTimeInChange);
-    window.Node.TIME_OUT.addEventListener('change', onTimeOutChange);
+  TIME_IN.addEventListener('change', onTimeInChange);
+  TIME_OUT.addEventListener('change', onTimeOutChange);
 
-    window.Node.OFFER_FORM.addEventListener('submit', onFormSubmit);
-    window.Node.RESET_FORM.addEventListener('click', onResetButtonClick);
-    window.Node.RESET_FORM.addEventListener('keydown', onResetButtonEnter);
-  })();
+  window.Node.OFFER_FORM.addEventListener('submit', onFormSubmit);
+  RESET_FORM.addEventListener('click', onResetButtonClick);
+  RESET_FORM.addEventListener('keydown', onResetButtonEnter);
 })();

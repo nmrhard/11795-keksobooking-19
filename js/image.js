@@ -1,14 +1,13 @@
 'use strict';
 
-window.image = (function () {
+(function () {
+  var AVATAR_CHOOSER = document.body.querySelector('#avatar');
+  var AVATAR_PREVIEW = document.body.querySelector('.ad-form-header__preview img');
+  var ROOM_PHOTO_CHOOSER = document.body.querySelector('#images');
+  var ROOM_PHOTO_PREVIEW = document.body.querySelector('.ad-form__photo');
   var FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
-  var avatarChooser = window.Node.AVATAR_CHOOSER;
-  var avatarPreview = window.Node.AVATAR_PREVIEW;
-  var defaultAvatar = window.Node.AVATAR_PREVIEW.src;
-
-  var roomPhotoChooser = window.Node.ROOM_PHOTO_CHOOSER;
-  var roomPhotoPreview = window.Node.ROOM_PHOTO_PREVIEW;
+  var defaultAvatar = AVATAR_PREVIEW.src;
 
   var checkFile = function (file) {
     var fileName = file.name.toLowerCase();
@@ -21,14 +20,14 @@ window.image = (function () {
   };
 
   var onAvatatChange = function () {
-    var file = avatarChooser.files[0];
+    var file = AVATAR_CHOOSER.files[0];
     var isImage = checkFile(file);
 
     if (isImage) {
       var reader = new FileReader();
 
       reader.addEventListener('load', function () {
-        avatarPreview.src = reader.result;
+        AVATAR_PREVIEW.src = reader.result;
       });
 
       reader.readAsDataURL(file);
@@ -36,20 +35,20 @@ window.image = (function () {
   };
 
   var onRoomPhotoChange = function () {
-    var file = roomPhotoChooser.files[0];
+    var file = ROOM_PHOTO_CHOOSER.files[0];
     var isImage = checkFile(file);
 
     if (isImage) {
       var reader = new FileReader();
 
       reader.addEventListener('load', function () {
-        roomPhotoPreview.style = 'display: flex; flex-wrap: wrap; width: 290px;';
+        ROOM_PHOTO_PREVIEW.style = 'display: flex; flex-wrap: wrap; width: 290px;';
         var roomPhoto = document.createElement('img');
         roomPhoto.setAttribute('width', '70');
         roomPhoto.setAttribute('height', '70');
         roomPhoto.src = reader.result;
         roomPhoto.alt = 'Фото жилья';
-        roomPhotoPreview.appendChild(roomPhoto);
+        ROOM_PHOTO_PREVIEW.appendChild(roomPhoto);
       });
 
       reader.readAsDataURL(file);
@@ -57,14 +56,14 @@ window.image = (function () {
   };
 
   var removeImages = function () {
-    avatarPreview.src = defaultAvatar;
-    roomPhotoPreview.innerHTML = '';
+    AVATAR_PREVIEW.src = defaultAvatar;
+    ROOM_PHOTO_PREVIEW.innerHTML = '';
   };
 
-  avatarChooser.addEventListener('change', onAvatatChange);
-  roomPhotoChooser.addEventListener('change', onRoomPhotoChange);
+  AVATAR_CHOOSER.addEventListener('change', onAvatatChange);
+  ROOM_PHOTO_CHOOSER.addEventListener('change', onRoomPhotoChange);
 
-  return {
+  window.image = {
     removeImages: removeImages
   };
 })();

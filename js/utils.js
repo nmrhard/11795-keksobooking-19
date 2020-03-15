@@ -1,35 +1,11 @@
 'use strict';
 
-window.util = (function () {
+(function () {
   var MOUSE_LEFT_BUTTON = 0;
   var CASES = [2, 0, 1, 1, 1, 2];
   var Key = {
     ENTER: 'Enter',
     ESC: 'Escape'
-  };
-
-  var getPictureNumber = function (offer) {
-    return offer.toString().padStart(2, '0');
-  };
-
-  var getRandomBetween = function (min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  };
-
-  var getRandomItem = function (arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
-  };
-
-  var getRandomItems = function (arr) {
-    var arrLenght = getRandomBetween(1, arr.length);
-    var randomArr = arr.filter(function (item, index) {
-      if (arrLenght > index) {
-        return true;
-      }
-      return false;
-    });
-
-    return randomArr;
   };
 
   var isMouseLeftEvent = function (evt, action) {
@@ -80,11 +56,7 @@ window.util = (function () {
     }
   };
 
-  return {
-    getPictureNumber: getPictureNumber,
-    getRandomBetween: getRandomBetween,
-    getRandomItem: getRandomItem,
-    getRandomItems: getRandomItems,
+  window.util = {
     isMouseLeftEvent: isMouseLeftEvent,
     isEnterEvent: isEnterEvent,
     isEscEvent: isEscEvent,

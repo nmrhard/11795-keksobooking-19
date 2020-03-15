@@ -1,12 +1,17 @@
 'use strict';
 
-window.filter = (function () {
+(function () {
+  var HOUSE_TYPE_FILTER = document.querySelector('#housing-type');
+  var HOUSE_PRICE_FILTER = document.querySelector('#housing-price');
+  var HOUSE_ROOMS_FILTER = document.querySelector('#housing-rooms');
+  var HOUSE_GUESTS_FILTER = document.querySelector('#housing-guests');
+  var HOUSE_FEATURES_FILTER = document.querySelector('#housing-features');
   var filterOffers;
-  var apartmentType = window.Node.HOUSE_TYPE_FILTER.value;
-  var apartmentPrice = window.Node.HOUSE_PRICE_FILTER.value;
-  var apartmentRooms = window.Node.HOUSE_ROOMS_FILTER.value;
-  var apartmentGuests = window.Node.HOUSE_GUESTS_FILTER.value;
-  var apartmentFeatures = Array.from(window.Node.HOUSE_FEATURES_FILTER.children)
+  var apartmentType = HOUSE_TYPE_FILTER.value;
+  var apartmentPrice = HOUSE_PRICE_FILTER.value;
+  var apartmentRooms = HOUSE_ROOMS_FILTER.value;
+  var apartmentGuests = HOUSE_GUESTS_FILTER.value;
+  var apartmentFeatures = Array.from(HOUSE_FEATURES_FILTER.children)
   .filter(function (feature) {
     return feature.checked === true;
   })
@@ -20,15 +25,15 @@ window.filter = (function () {
   };
 
   var onFilterChange = function (evt) {
-    if (evt.target.id === window.Node.HOUSE_TYPE_FILTER.id) {
+    if (evt.target.id === HOUSE_TYPE_FILTER.id) {
       apartmentType = evt.target.value;
-    } else if (evt.target.id === window.Node.HOUSE_PRICE_FILTER.id) {
+    } else if (evt.target.id === HOUSE_PRICE_FILTER.id) {
       apartmentPrice = evt.target.value;
-    } else if (evt.target.id === window.Node.HOUSE_ROOMS_FILTER.id) {
+    } else if (evt.target.id === HOUSE_ROOMS_FILTER.id) {
       apartmentRooms = evt.target.value;
-    } else if (evt.target.id === window.Node.HOUSE_GUESTS_FILTER.id) {
+    } else if (evt.target.id === HOUSE_GUESTS_FILTER.id) {
       apartmentGuests = evt.target.value;
-    } else if (evt.target.parentNode.id === window.Node.HOUSE_FEATURES_FILTER.id) {
+    } else if (evt.target.parentNode.id === HOUSE_FEATURES_FILTER.id) {
       apartmentFeatures = getFeatures();
     }
 
@@ -37,7 +42,7 @@ window.filter = (function () {
   };
 
   var getFeatures = function () {
-    var features = Array.from(window.Node.HOUSE_FEATURES_FILTER.children)
+    var features = Array.from(HOUSE_FEATURES_FILTER.children)
     .filter(function (feature) {
       return feature.checked;
     })
@@ -86,7 +91,7 @@ window.filter = (function () {
 
   window.Node.MAP_FORM.addEventListener('change', onFilterChange);
 
-  return {
+  window.filter = {
     setFilter: setFilter
   };
 })();

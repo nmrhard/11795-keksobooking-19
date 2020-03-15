@@ -1,6 +1,6 @@
 'use strict';
 
-window.data = (function () {
+(function () {
   var MAX_OFFERS = 5;
   var initialOffers;
   var offers;
@@ -29,7 +29,7 @@ window.data = (function () {
 
   window.backend.load(onDataLoaded, window.util.onError);
 
-  return {
+  window.data = {
     getData: getData,
     filterData: filterData,
     getOfferByIndex: getOfferByIndex,

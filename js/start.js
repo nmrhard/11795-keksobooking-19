@@ -1,6 +1,6 @@
 'use strict';
 
-window.start = (function () {
+(function () {
   var PinMain = {
     WIDTH: 65,
     HEIGHT: 65,
@@ -63,7 +63,7 @@ window.start = (function () {
 
   disableEelemnts();
 
-  return {
+  window.start = {
     offers: offers,
     PinMain: PinMain,
     disableEelemnts: disableEelemnts

@@ -1,6 +1,6 @@
 'use strict';
 
-window.map = (function () {
+(function () {
   var mapBorder = {
     X_MIN: 0,
     X_MAX: 1200,
@@ -8,6 +8,7 @@ window.map = (function () {
     Y_MAX: 630
   };
   var MAP_PIN_CLASS = 'map__pin';
+  var FILTER_CONTAINER = document.querySelector('.map__filters-container');
 
   var onCardCloseClick = function () {
     closeCard();
@@ -37,7 +38,7 @@ window.map = (function () {
     if (isPin) {
       pin.classList.toggle('map__pin--active');
       var offer = window.data.getOfferByIndex(pin.dataset.index);
-      window.Node.FILTER_CONTAINER.before(window.card.renderCard(offer));
+      FILTER_CONTAINER.before(window.card.renderCard(offer));
       document.querySelector('.popup__close').addEventListener('click', onCardCloseClick);
       document.addEventListener('keydown', onCardEscapeKeyDown);
     }
@@ -96,7 +97,7 @@ window.map = (function () {
     window.addEventListener('mouseup', onPinMainMouseUp);
   };
 
-  return {
+  window.map = {
     onPinMainClick: onPinMainClick,
     showCard: showCard,
     closeCard: closeCard

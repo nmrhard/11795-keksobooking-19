@@ -1,6 +1,6 @@
 'use strict';
 
-window.backend = (function () {
+(function () {
   var StatusCode = {
     OK: 200
   };
@@ -50,7 +50,7 @@ window.backend = (function () {
     xhr.send(data);
   };
 
-  return {
+  window.backend = {
     load: load,
     save: save
   };

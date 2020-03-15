@@ -1,6 +1,6 @@
 'use strict';
 
-window.card = (function () {
+(function () {
   var TYPE_APARTMENT_MAP = {
     'flat': 'Квартира',
     'bungalo': 'Бунгало',
@@ -80,7 +80,7 @@ window.card = (function () {
     return cardElement;
   };
 
-  return {
+  window.card = {
     renderCard: renderCard
   };
 })();

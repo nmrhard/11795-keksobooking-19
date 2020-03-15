@@ -1,13 +1,14 @@
 'use strict';
 
-window.pin = (function () {
+(function () {
+  var PIN_TEMPLATE = document.querySelector('#pin').content.querySelector('.map__pin');
   var Pin = {
     WIDTH: 50,
     HEIGHT: 70
   };
 
   var renderPin = function (offer, index) {
-    var pinElement = window.Node.PIN_TEMPLATE.cloneNode(true);
+    var pinElement = PIN_TEMPLATE.cloneNode(true);
     var pinX = offer.location.x - Pin.WIDTH / 2;
     var pinY = offer.location.y - Pin.HEIGHT;
     var pinImageElement = pinElement.querySelector('img');
@@ -65,7 +66,7 @@ window.pin = (function () {
   window.Node.MAP_PINS_ELEMENT.addEventListener('click', onPinClick);
   window.Node.MAP_PINS_ELEMENT.addEventListener('keydown', onPinEnterKeyDown);
 
-  return {
+  window.pin = {
     renderPin: renderPin,
     renderPins: renderPins,
     removePins: removePins,
