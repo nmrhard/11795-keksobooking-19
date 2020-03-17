@@ -13,7 +13,8 @@
     var pinY = offer.location.y - Pin.HEIGHT;
     var pinImageElement = pinElement.querySelector('img');
 
-    pinElement.setAttribute('style', 'left: ' + pinX + 'px; ' + 'top: ' + pinY + 'px;');
+    pinElement.style.left = pinX + 'px';
+    pinElement.style.top = pinY + 'px';
 
     pinImageElement.src = offer.author.avatar;
     pinImageElement.alt = offer.offer.title;

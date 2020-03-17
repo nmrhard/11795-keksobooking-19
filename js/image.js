@@ -6,6 +6,8 @@
   var ROOM_PHOTO_CHOOSER = document.body.querySelector('#images');
   var ROOM_PHOTO_PREVIEW = document.body.querySelector('.ad-form__photo');
   var FILE_TYPES = ['jpg', 'jpeg', 'png'];
+  var roomImageWidth = 70;
+  var roomImageHeight = 70;
 
   var defaultAvatar = AVATAR_PREVIEW.src;
 
@@ -44,8 +46,8 @@
       reader.addEventListener('load', function () {
         ROOM_PHOTO_PREVIEW.style = 'display: flex; flex-wrap: wrap; width: 290px;';
         var roomPhoto = document.createElement('img');
-        roomPhoto.setAttribute('width', '70');
-        roomPhoto.setAttribute('height', '70');
+        roomPhoto.width = roomImageWidth;
+        roomPhoto.height = roomImageHeight;
         roomPhoto.src = reader.result;
         roomPhoto.alt = 'Фото жилья';
         ROOM_PHOTO_PREVIEW.appendChild(roomPhoto);
